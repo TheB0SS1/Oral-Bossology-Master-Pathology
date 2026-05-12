@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oral Bossology | Professional Pathology Platform</title>
+    <!-- Google Fonts for Professional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #004e92;
+            --secondary: #000428;
+            --accent: #00c6ff;
+            --surface: #ffffff;
+            --bg: #f0f2f5;
+            --text: #2c3e50;
+            --success: #00b894;
+            --danger: #d63031;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0, 78, 146, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Arabic Font Override */
+        .ar-text {
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand i {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        .nav-controls button {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            margin-left: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-controls button:hover {
+            background: var(--accent);
+            color: var(--secondary);
+        }
+
+        /* --- Main Layout --- */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Intro Modal (Sidebar) --- */
+        #intro-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 4, 40, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            justify-content: flex-end; /* Slide from right */
+            align-items: center;
+            padding: 0;
+        }
+
+        .intro-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            height: 100%;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+            animation: slideLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .intro-logo {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 3rem;
+            border-right: 4px solid var(--accent);
+            padding-right: 20px;
+        }
+
+        .btn-enter {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(0, 78, 146, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-enter:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Dashboard --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-bottom: 5px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 78, 146, 0.2);
+        }
+
+        .card.full { border-color: #6c5ce7; }
+        .card.exam1 { border-color: #00b894; }
+        .card.exam2 { border-color: #0984e3; }
+        .card.gallery { border-color: #e17055; }
+
+        .card i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: #f0f2f5;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            color: var(--text);
+            transition: background 0.3s;
+        }
+
+        .card:hover i {
+            background: white;
+            color: var(--primary);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        /* --- Quiz Interface --- */
+        .quiz-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .quiz-main {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .quiz-sidebar {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .timer-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 100%;
+            transition: width 1s linear, background 0.3s;
+        }
+
+        .image-stage {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-stage img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: #e3f2fd;
+        }
+
+        .option-btn.correct {
+            background: var(--success) !important;
+            border-color: var(--success) !important;
+            color: white !important;
+        }
+
+        .option-btn.wrong {
+            background: var(--danger) !important;
+            border-color: var(--danger) !important;
+            color: white !important;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .feedback-box {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f8f9fa;
+            min-height: 120px;
+        }
+
+        .quote-ar {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .next-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: none;
+            margin: 0 auto;
+        }
+
+        /* --- Gallery --- */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .g-img-box {
+            height: 180px;
+            background: #eee;
+        }
+
+        .g-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .g-info {
+            padding: 1rem;
+        }
+
+        .g-name {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .g-diag {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .quiz-layout {
+                grid-template-columns: 1fr;
+            }
+            .quiz-sidebar {
+                order: -1; /* Move stats to top on mobile */
+                position: static;
+                margin-bottom: 1rem;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            #intro-modal {
+                align-items: flex-end;
+            }
+            .intro-content {
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                border-radius: 20px 20px 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Intro Modal (Arabic) -->
+    <div id="intro-modal">
+        <div class="intro-content">
+            <div class="intro-logo">
+                <i class="fas fa-tooth"></i>
+            </div>
+            <div class="intro-text ar-text">
+                <h3>أهلاً بك يا بطل في Oral Bossology</h3>
+                <p style="margin-top: 15px;">هذا الموقع مصمم خصيصاً ليجعلك "الزعيم" فى Oral Pathology.</p>
+                <p>واجهتنا تحتوي على:</p>
+                <ul style="margin-right: 20px; list-style: circle;">
+                    <li>اختبار شامل (Master Quiz) لجميع الحالات.</li>
+                    <li>اختبارات سريعة (Exams) للتدريب المكثف.</li>
+                    <li>معرض صور كامل للمراجعة.</li>
+                   <li>.رجى العلم أن هذه الأسئلة مخصصة لغرض الاختبار فقط، وهي لا تحاكي شكل الامتحان .</li>
+                </ul>
+                <p style="margin-top: 15px;">تذكر: الإصرار هو مفتاح النجاح، ولا تنسَ الدعاء لـ The Boss.</p>
+            </div>
+            <button class="btn-enter ar-text" onclick="closeIntro()">دخول للموقع</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="brand">
+            <i class="fas fa-tooth"></i>
+            <h1>Oral Bossology</h1>
+        </div>
+        <div class="nav-controls">
+            <button onclick="resetProgress()"><i class="fas fa-sync-alt"></i> Reset</button>
+            <button onclick="showDashboard()"><i class="fas fa-home"></i> Menu</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- 1. Dashboard View -->
+        <section id="dashboard-view" class="view active">
+            <h2 style="margin-bottom: 10px;">Select Your Mode</h2>
+            <p style="color: #666;">Choose the challenge level to begin.</p>
+            
+            <div class="dashboard-grid">
+                <!-- Master Quiz -->
+                <div class="card full" onclick="startQuiz('full')">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Master Quiz</h3>
+                    <p>The Complete Challenge</p>
+                    <p style="margin-top: 10px; font-weight: bold; color: var(--primary);">122 Questions</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Cover all cases comprehensively</p>
+                </div>
+
+                <!-- Exam 1 -->
+                <div class="card exam1" onclick="startQuiz('exam1')">
+                    <i class="fas fa-stopwatch"></i>
+                    <h3>Rapid Assessment I</h3>
+                    <p>Timed Exam</p>
+                    <p style="margin-top: 10px; font-weight: bold; color: #00b894;">30 Questions</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Randomly selected from pool</p>
+                </div>
+
+                <!-- Exam 2 -->
+                <div class="card exam2" onclick="startQuiz('exam2')">
+                    <i class="fas fa-brain"></i>
+                    <h3>Rapid Assessment II</h3>
+                    <p>Timed Exam</p>
+                    <p style="margin-top: 10px; font-weight: bold; color: #0984e3;">30 Questions</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">A new random set</p>
+                </div>
+
+                <!-- Gallery -->
+                <div class="card gallery" onclick="showGallery()">
+                    <i class="fas fa-images"></i>
+                    <h3>Case Gallery</h3>
+                    <p>Study Reference</p>
+                    <p style="margin-top: 10px; font-weight: bold; color: #e17055;">View All 122</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Browse images & diagnoses</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Quiz View -->
+        <section id="quiz-view" class="view">
+            <div class="quiz-layout">
+                <!-- Main Image & Options -->
+                <div class="quiz-main">
+                    <div class="timer-container">
+                        <div id="timer-bar" class="timer-bar"></div>
+                    </div>
+
+                    <div class="image-stage">
+                        <img id="q-image" src="" alt="Slide">
+                    </div>
+
+                    <div id="options-area" class="options-grid">
+                        <!-- Buttons injected via JS -->
+                    </div>
+
+                    <div class="feedback-box">
+                        <div id="quote-display" class="quote-ar ar-text"></div>
+                        <button id="btn-next" class="next-btn" onclick="nextQuestion()">Next Case <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Sidebar Info -->
+                <div class="quiz-sidebar">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary);">Session Info</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <small>Progress</small>
+                        <h2 id="info-progress">1 / 30</h2>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <small>Current Score</small>
+                        <h2 id="info-score" style="color: var(--success);">0</h2>
+                    </div>
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 1.5rem 0;">
+                    <button onclick="showDashboard()" style="width: 100%; padding: 10px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer;">Exit to Menu</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Gallery View -->
+        <section id="gallery-view" class="view">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Complete Case Library</h2>
+                <button onclick="showDashboard()" class="nav-controls" style="background: var(--secondary); color: white; padding: 8px 16px; border: none; border-radius: 20px; cursor: pointer;">Back</button>
+            </div>
+            <div id="gallery-grid" class="gallery-container">
+                <!-- Gallery Items JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Oral Bossology &copy; 2026. Designed by <strong>TheBoss</strong>.</p>
+    </footer>
+
+    <script>
+        // --- 1. Database (Same as before) ---
+        const rawData = [
+            { id: "2-001.JPG", answer: "Hyperparakeratosis" },
+            { id: "2-002.JPG", answer: "Acanthosis" },
+            { id: "2-003.JPG", answer: "White sponge nevus" },
+            { id: "2-004.JPG", answer: "White sponge nevus" },
+            { id: "2-005.JPG", answer: "White sponge nevus" },
+            { id: "2-006.JPG", answer: "White sponge nevus" },
+            { id: "2-007.JPG", answer: "White sponge nevus" },
+            { id: "2-008.JPG", answer: "Lichen planus" },
+            { id: "2-009.JPG", answer: "Lichen planus" },
+            { id: "2-010.JPG", answer: "Lichen planus" },
+            { id: "2-011.JPG", answer: "Lichen planus" },
+            { id: "2-012.JPG", answer: "Lichen planus" },
+            { id: "2-013.JPG", answer: "Lichen planus" },
+            { id: "2-014.JPG", answer: "Frictional keratosis" },
+            { id: "2-015.JPG", answer: "1. Drop-shaped" },
+            { id: "2-016.JPG", answer: "2. Irregular epithelial stratification." },
+            { id: "2-017.JPG", answer: "3. Basilar hyperplasia." },
+            { id: "2-018.JPG", answer: "4. Loss of basal cell polarity." },
+            { id: "2-019.JPG", answer: "5. Cellular and nuclear pleomorphism. 6. Nuclear hyperchromatism." },
+            { id: "2-020.JPG", answer: "7. Enlarged or prominent nucleoli." },
+            { id: "2-021.JPG", answer: "8. Increased nuclear / cytoplasmic ratio." },
+            { id: "2-022.JPG", answer: "9. Individual cell keratinization." },
+            { id: "2-023.JPG", answer: "10. Increase normal and abnormal mitosis." },
+            { id: "2-024.JPG", answer: "11. Reduction or loss of cellular adhesion." },
+            { id: "2-025.JPG", answer: "Mild epithelial dysplasia" },
+            { id: "2-026.JPG", answer: "Moderate epithelial dysplasia" },
+            { id: "2-027.JPG", answer: "Severe epithelial dysplasia" },
+            { id: "2-028.JPG", answer: "Carcinoma in Situ" },
+            { id: "2-029.JPG", answer: "Oral submucous fibrosis" },
+            { id: "2-030.JPG", answer: "Oral submucous fibrosis" },
+            { id: "2-031.JPG", answer: "Oral submucous fibrosis" },
+            { id: "2-032.JPG", answer: "Squamous cell papilloma" },
+            { id: "2-033.JPG", answer: "Squamous cell papilloma" },
+            { id: "2-034.JPG", answer: "Irritation Fibroma" },
+            { id: "2-035.JPG", answer: "Irritation Fibroma" },
+            { id: "2-036.JPG", answer: "Peripheral Giant Cell Granuloma" },
+            { id: "2-037.JPG", answer: "Peripheral Giant Cell Granuloma" },
+            { id: "2-038.JPG", answer: "Capillary hemangioma" },
+            { id: "2-039.JPG", answer: "Cavernous hemangioma" },
+            { id: "2-040.JPG", answer: "Cavernous hemangioma" },
+            { id: "2-041.JPG", answer: "Lymphangioma" },
+            { id: "2-042.JPG", answer: "Lymphangioma" },
+            { id: "2-043.JPG", answer: "Well differentiated squamous cell carcinoma" },
+            { id: "2-044.JPG", answer: "Well differentiated squamous cell carcinoma" },
+            { id: "2-045.JPG", answer: "Well differentiated squamous cell carcinoma" },
+            { id: "2-046.JPG", answer: "Well differentiated squamous cell carcinoma" },
+            { id: "2-047.JPG", answer: "Well differentiated squamous cell carcinoma" },
+            { id: "2-048.JPG", answer: "Moderately differentiated squamous cell carcinoma" },
+            { id: "2-049.JPG", answer: "Poorly differentiated squamous cell carcinoma" },
+            { id: "2-050.JPG", answer: "Poorly differentiated squamous cell carcinoma" },
+            { id: "2-051.JPG", answer: "Poorly differentiated squamous cell carcinoma" },
+            { id: "2-052.JPG", answer: "Verrucous Carcinoma" },
+            { id: "2-053.JPG", answer: "Verrucous Carcinoma" },
+            { id: "2-054.JPG", answer: "Verrucous Carcinoma" },
+            { id: "2-055.JPG", answer: "Verrucous Carcinoma" },
+            { id: "2-056.JPG", answer: "Basal cell Carcinoma" },
+            { id: "2-057.JPG", answer: "Basal cell Carcinoma" },
+            { id: "2-058.JPG", answer: "Basal cell Carcinoma" },
+            { id: "2-059.JPG", answer: "Traumatic neuroma" },
+            { id: "2-060.JPG", answer: "Neurilemmoma" },
+            { id: "2-061.JPG", answer: "Neurilemmoma" },
+            { id: "2-062.JPG", answer: "Osteoblastic osteosarcoma" },
+            { id: "2-063.JPG", answer: "Osteoblastic osteosarcoma" },
+            { id: "2-064.JPG", answer: "Chondroblastic osteosarcoma" },
+            { id: "2-065.JPG", answer: "Fibroblastic osteosarcoma" },
+            { id: "2-066.JPG", answer: "Burkitt's lymphoma" },
+            { id: "2-067.JPG", answer: "Burkitt’s lymphoma" },
+            { id: "2-068.JPG", answer: "Burkitt’s lymphoma" },
+            { id: "2-069.JPG", answer: "Follicular ameloblastoma" },
+            { id: "2-070.JPG", answer: "Follicular ameloblastoma" },
+            { id: "2-071.JPG", answer: "Follicular ameloblastoma" },
+            { id: "2-072.JPG", answer: "1999, 1999, 1999, 1999, 1999, 1999 1999, 1999, 1999, 1999, 1999." },
+            { id: "2-073.JPG", answer: "Follicular ameloblastoma" },
+            { id: "2-074.JPG", answer: "Follicular ameloblastoma Stellate reticulum Ameloblasts" },
+            { id: "2-075.JPG", answer: "Plexiform ameloblastoma" },
+            { id: "2-076.JPG", answer: "Plexiform ameloblastoma" },
+            { id: "2-077.JPG", answer: "Plexiform ameloblastoma" },
+            { id: "2-078.JPG", answer: "Acanthomatous ameloblastoma" },
+            { id: "2-079.JPG", answer: "Acanthomatous ameloblastoma" },
+            { id: "2-080.JPG", answer: "Acanthomatous ameloblastoma" },
+            { id: "2-081.JPG", answer: "Granular ameloblastoma" },
+            { id: "2-082.JPG", answer: "Granular ameloblastoma" },
+            { id: "2-083.JPG", answer: "Desmoplastic ameloblastoma" },
+            { id: "2-084.JPG", answer: "Desmoplastic ameloblastoma" },
+            { id: "2-085.JPG", answer: "Unicyctic ameloblastoma" },
+            { id: "2-086.JPG", answer: "تقريبا مش معانا Peripheral ameloblastoma" },
+            { id: "2-087.JPG", answer: "Calcifying epithelium odontogenic tumor (CEOT) Pindborg tumor" },
+            { id: "2-088.JPG", answer: "Calcifying epithelium odontogenic tumor (CEOT) Pindborg tumor" },
+            { id: "2-089.JPG", answer: "Calcifying epithelium odontogenic tumor (CEOT) Pindborg tumor" },
+            { id: "2-090.JPG", answer: "Calcifying epithelium odontogenic tumor (CEOT) Pindborg tumor" },
+            { id: "2-091.JPG", answer: "Adenomatoid odontogenic tumor \" AOT \"" },
+            { id: "2-092.JPG", answer: "Adenomatoid odontogenic tumor \"AOT\"" },
+            { id: "2-093.JPG", answer: "Adenomatoid odontogenic tumor \" AOT \"" },
+            { id: "2-094.JPG", answer: "Adenomatoid odontogenic tumor \" AOT \"" },
+            { id: "2-095.JPG", answer: "Compound odontome" },
+            { id: "2-096.JPG", answer: "Compound odontome" },
+            { id: "2-097.JPG", answer: "Complex odontome" },
+            { id: "2-098.JPG", answer: "Complex odontome" },
+            { id: "2-099.JPG", answer: "Cementoblastoma" },
+            { id: "2-100.JPG", answer: "Cementoblastoma" },
+            { id: "2-101.JPG", answer: "Cementoblastoma" },
+            { id: "2-102.JPG", answer: "Plemorphic adenoma" },
+            { id: "2-103.JPG", answer: "Plemorphic adenoma" },
+            { id: "2-104.JPG", answer: "Pleomorphic adenoma" },
+            { id: "2-105.JPG", answer: "Squamous metaplasia in pleomorphic adenoma" },
+            { id: "2-106.JPG", answer: "Pleomorphic adenoma" },
+            { id: "2-107.JPG", answer: "Pleomorphic adenoma" },
+            { id: "2-108.JPG", answer: "Warthin’s tumor" },
+            { id: "2-109.JPG", answer: "Warthin's tumor" },
+            { id: "2-110.JPG", answer: "Warthin's tumor" },
+            { id: "2-111.JPG", answer: "Warthin's tumor" },
+            { id: "2-112.JPG", answer: "Low grade mucoepidermoid carcinoma" },
+            { id: "2-113.JPG", answer: "Low grade mucoepidermoid carcinoma" },
+            { id: "2-114.JPG", answer: "Low grade mucoepidermoid carcinoma" },
+            { id: "2-115.JPG", answer: "Low grade mucoepidermoid carcinoma" },
+            { id: "2-116.JPG", answer: "High grade mucoepidermoid carcinoma" },
+            { id: "2-117.JPG", answer: "Adenoid cystic carcinoma" },
+            { id: "2-118.JPG", answer: "Adenoid cystic carcinoma" },
+            { id: "2-119.JPG", answer: "MUC0US RETENTION Cyst" },
+            { id: "2-120.JPG", answer: "Mucous extravasation phenomenon" },
+            { id: "2-121.JPG", answer: "Sjögren's Syndrome" },
+            { id: "2-122.JPG", answer: "Sjögren's Syndrome" }
+        ];
+
+        const quotes = [
+            "ما شاء الله، إجابة ممتازة!", "أنت بطل، استمر!", "عظيم جداً، هكذا تكون الإجابة.",
+            "أنت تسير في الطريق الصحيح.", "عمل رائع، فخور بك!", "استمر، النجاح حليفك.",
+            "ممتاز، لا تتوقف أبداً.", "أنت تتعلم بذكاء.", "هذه هي الروح القيادية!",
+            "إجابة صحيحة 100%.", "أسلوب مذهل في التحليل.", "أنت تتفوق يوماً بعد يوم.",
+            "واصل تميزك يا طبيب المستقبل.", "عقلية رائعة وإجابة موفقة.", "أحسنت، كل التقدير لك.",
+            "لا مثيل لاجتهادك.", "هذا هو التفوق الحقيقي.", "مستقبلك باهر بإذن الله.",
+            "أنت تملك موهبة فطرية.", "ممتاز، هكذا يحصل الأبطال.", "اجتهادك يثمر دائماً.",
+            "أنت مثال يحتذى به.", "استمر في هذا التقدم.", "إجابة تشهد على ذكائك.",
+            "أنت تلميذ نجيب.", "يا بطل، ما هذا التميز!", "أنت تفرض احترامك بعلمك.",
+            "مجهود تشكر عليه جداً.", "أنت تترك بصمة قوية.", "إجابة منطقية وسليمة.",
+            "أنت فوق المستوى المطلوب.", "هذا هو الطريق للقمة.", "لا توقف عزيمتك.",
+            "أنت تستحق كل خير.", "مستوى رفيع من الفهم.", "يا لها من إجابة رائعة!",
+            "أنت تتجاوز التوقعات.", "نعم، هذه هي الطريقة.", "علمك واسع وفهمك عميق.",
+            "أنت ستجد النجاح بانتظارك.", "هذا التفوق يستحق التصفيق.", "استمر، أنت مبدع.",
+            "أنت تمتلك رؤية ثاقبة.", "إجابة متميزة كعادتك.", "أنت تبني مستقبلاً مشرقاً.",
+            "هذه روح لا تقهر.", "أنت تذهلنا بتميزك.", "ممتاز، هكذا دائماً.",
+            "أنت قدوة للجميع.", "استمر ولا ترجع للوراء.", "الله ينور دربك يا بطل."
+        ];
+
+        // --- 2. State Management ---
+        let currentQuiz = {
+            questions: [],
+            index: 0,
+            score: 0,
+            mode: null // 'full', 'exam1', 'exam2'
+        };
+        
+        const STORAGE_KEY = 'oral_bossology_v2';
+        let timerInterval;
+
+        // --- 3. Core Functions ---
+
+        function init() {
+            // Render Gallery first
+            renderGallery();
+
+            // Check for saved progress
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                currentQuiz = JSON.parse(saved);
+                // Jump directly to question if progress exists
+                loadQuestion();
+            } else {
+                // Show Intro if first time (no storage)
+                // If you want intro EVERY time, remove the 'else' check, 
+                // but standard UX is to check if new user.
+                // Assuming user wants intro on load:
+                document.getElementById('intro-modal').style.display = 'flex';
+            }
+        }
+
+        function closeIntro() {
+            const modal = document.getElementById('intro-modal');
+            modal.style.animation = "slideLeft 0.5s reverse";
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 400);
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function showDashboard() {
+            clearInterval(timerInterval);
+            switchView('dashboard-view');
+        }
+
+        function showGallery() {
+            switchView('gallery-view');
+        }
+
+        function startQuiz(mode) {
+            // Prepare Data
+            let questions = [];
+            
+            if (mode === 'full') {
+                // Use all 122
+                questions = shuffleArray([...rawData]);
+            } else {
+                // Use random 30
+                const all = shuffleArray([...rawData]);
+                questions = all.slice(0, 30);
+            }
+
+            // Reset State
+            currentQuiz = {
+                questions: questions,
+                index: 0,
+                score: 0,
+                mode: mode
+            };
+
+            saveProgress();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            switchView('quiz-view');
+
+            if (currentQuiz.index >= currentQuiz.questions.length) {
+                finishQuiz();
+                return;
+            }
+
+            const q = currentQuiz.questions[currentQuiz.index];
+            
+            // UI Updates
+            document.getElementById('info-progress').innerText = `${currentQuiz.index + 1} / ${currentQuiz.questions.length}`;
+            document.getElementById('info-score').innerText = currentQuiz.score;
+            document.getElementById('quote-display').innerText = "";
+            document.getElementById('btn-next').style.display = "none";
+            
+            // Image
+            const imgEl = document.getElementById('q-image');
+            imgEl.src = `images/${q.id}`;
+            imgEl.onerror = function() {
+                this.src = `https://via.placeholder.com/600x400?text=${q.id}`;
+            };
+
+            // Options
+            const options = generateOptions(q);
+            const optsContainer = document.getElementById('options-area');
+            optsContainer.innerHTML = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(btn, opt, q.answer);
+                optsContainer.appendChild(btn);
+            });
+
+            // Timer
+            startTimer();
+            saveProgress();
+        }
+
+        function generateOptions(q) {
+            const distractors = rawData
+                .filter(i => i.answer !== q.answer)
+                .map(i => i.answer);
+            const randomDistractors = shuffleArray(distractors).slice(0, 3);
+            return shuffleArray([q.answer, ...randomDistractors]);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const bar = document.getElementById('timer-bar');
+            let width = 100;
+            const duration = 50; // seconds
+
+            bar.style.width = '100%';
+            bar.style.backgroundColor = 'var(--primary)';
+
+            timerInterval = setInterval(() => {
+                width -= (100 / duration);
+                bar.style.width = width + '%';
+                
+                if(width < 30) bar.style.backgroundColor = 'var(--danger)';
+                
+                if (width <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleTimeout() {
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+            
+            // Show correct
+            const q = currentQuiz.questions[currentQuiz.index];
+            btns.forEach(b => {
+                if(b.innerText === q.answer) b.classList.add('correct');
+            });
+
+            document.getElementById('quote-display').innerText = "Time's up! Focus!";
+            document.getElementById('quote-display').style.color = "var(--danger)";
+            document.getElementById('btn-next').style.display = "inline-block";
+        }
+
+        function checkAnswer(btn, selected, correct) {
+            clearInterval(timerInterval);
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            const quoteEl = document.getElementById('quote-display');
+
+            if(selected === correct) {
+                btn.classList.add('correct');
+                currentQuiz.score++;
+                document.getElementById('info-score').innerText = currentQuiz.score;
+                
+                quoteEl.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteEl.style.color = "var(--primary)";
+            } else {
+                btn.classList.add('wrong');
+                // Highlight correct
+                btns.forEach(b => {
+                    if(b.innerText === correct) b.classList.add('correct');
+                });
+                quoteEl.innerText = "Wrong! Pay attention.";
+                quoteEl.style.color = "var(--danger)";
+            }
+
+            document.getElementById('btn-next').style.display = "inline-block";
+            saveProgress();
+        }
+
+        function nextQuestion() {
+            currentQuiz.index++;
+            loadQuestion();
+        }
+
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            alert(`Quiz Completed!\nYour Score: ${currentQuiz.score} / ${currentQuiz.questions.length}`);
+            localStorage.removeItem(STORAGE_KEY);
+            showDashboard();
+        }
+
+        function saveProgress() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(currentQuiz));
+        }
+
+        function resetProgress() {
+            if(confirm("Reset all progress and return to menu?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const sorted = [...rawData].sort((a,b) => a.id.localeCompare(b.id));
+            
+            sorted.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <div class="g-img-box">
+                        <img src="images/${item.id}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Img'">
+                    </div>
+                    <div class="g-info">
+                        <div class="g-name">${item.id}</div>
+                        <div class="g-diag">${item.answer}</div>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // Init
+        window.onload = init;
+
+    </script>
+</body>
+</html>
