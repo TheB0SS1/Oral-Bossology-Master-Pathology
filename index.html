@@ -3,76 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Oral Bossology | Professional Pathology Platform</title>
+    <title>Oral Bossology | Master Pathology Platform</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Professional Color Palette */
-            --primary: #0f4c81; /* Classic Blue */
-            --primary-dark: #083458;
-            --accent: #00b4d8;
-            --surface: #ffffff;
-            --bg: #f4f7fa;
+            /* Premium Palette */
+            --primary: #2563eb;       /* Royal Blue */
+            --primary-dark: #1e40af;
+            --primary-light: #eff6ff;
+            --accent: #0ea5e9;        /* Sky Blue */
+            --dark: #0f172a;          /* Slate 900 */
+            --surface: rgba(255, 255, 255, 0.95);
+            --surface-solid: #ffffff;
             --text-main: #1e293b;
-            --text-light: #64748b;
+            --text-muted: #64748b;
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
             
-            /* UI Variables */
-            --radius-sm: 8px;
-            --radius-md: 16px;
-            --radius-lg: 24px;
+            /* Glassmorphism & Shadows */
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
             --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-            --shadow-md: 0 8px 24px rgba(15, 76, 129, 0.1);
-            --shadow-lg: 0 16px 48px rgba(15, 76, 129, 0.15);
-            --header-height: 70px;
+            --shadow-lg: 0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            outline: none;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Outfit', sans-serif;
+            /* Premium Animated Background */
+            background-color: #f1f5f9;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
         /* Arabic Font Override */
         .ar-text {
             font-family: 'Cairo', sans-serif;
             direction: rtl;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         /* --- Header --- */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--primary);
-            height: var(--header-height);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            box-shadow: var(--shadow-sm);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
         }
 
         .brand {
@@ -82,313 +88,302 @@
         }
 
         .brand i {
-            color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
         }
 
         .brand h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
         }
 
-        .nav-controls {
-            display: flex;
-            gap: 10px;
-        }
-
         .nav-controls button {
-            background: transparent;
-            border: 1px solid rgba(15, 76, 129, 0.2);
-            color: var(--primary);
-            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: var(--text-main);
+            padding: 10px 18px;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 0.85rem;
             font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .nav-controls button:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
-        /* --- Main Layout --- */
+        /* --- Main Container --- */
         main {
             flex: 1;
-            padding: 2rem 5%;
-            max-width: 1600px;
+            padding: 3rem 5%;
+            max-width: 1400px;
             margin: 0 auto;
             width: 100%;
         }
 
         .view {
             display: none;
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .view.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Intro Modal (Professional Sidebar) --- */
+        /* --- Intro Modal (Luxurious) --- */
         #intro-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(8, 52, 88, 0.6);
-            backdrop-filter: blur(6px);
-            z-index: 2000;
-            display: none; /* Controlled by JS */
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         
         #intro-modal.show {
             display: flex;
-            opacity: 1;
         }
 
         .intro-content {
             background: white;
             width: 100%;
-            max-width: 480px;
-            height: auto;
-            max-height: 100vh;
-            overflow-y: auto;
-            padding: 3rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.2);
-            margin-left: auto; /* Align to right for LTR layout logic, but visually side */
+            max-width: 500px;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
             position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* Decorative gradient circle behind logo */
+        .intro-content::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(40px);
+            z-index: 0;
         }
 
         .intro-logo {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            position: relative;
+            z-index: 1;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .intro-text h3 {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .intro-text ul {
-            margin: 1.5rem 0;
-            padding-right: 20px;
-            color: var(--text-light);
-        }
-        
-        .intro-text li {
-            margin-bottom: 10px;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .btn-enter {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            padding: 16px 32px;
+            padding: 18px 40px;
             font-size: 1.1rem;
+            font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            font-weight: 700;
-            box-shadow: 0 10px 25px rgba(15, 76, 129, 0.4);
-            transition: all 0.3s;
             width: 100%;
-            margin-top: auto;
+            margin-top: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 1;
         }
 
-        .btn-enter:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(15, 76, 129, 0.5);
+        .btn-enter:active {
+            transform: scale(0.98);
         }
 
-        /* --- Dashboard --- */
-        .dashboard-header {
+        /* --- Dashboard Cards --- */
+        .section-title {
             text-align: center;
             margin-bottom: 3rem;
         }
-
-        .dashboard-header h2 {
-            font-size: 2rem;
-            color: var(--text-main);
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
             margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            padding-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
 
         .card {
-            background: white;
-            border-radius: var(--radius-md);
-            padding: 2.5rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid white;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
             text-align: center;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--glass-shadow);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: #ccc;
-            transition: height 0.3s;
-        }
-
+        /* Hover effect: lift and glow */
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
+            border-color: rgba(37, 99, 235, 0.1);
         }
 
-        .card.full::before { background: linear-gradient(90deg, #6c5ce7, #a29bfe); }
-        .card.exam1::before { background: linear-gradient(90deg, #00b894, #55efc4); }
-        .card.exam2::before { background: linear-gradient(90deg, #0984e3, #74b9ff); }
-        .card.gallery::before { background: linear-gradient(90deg, #e17055, #fab1a0); }
-
-        .card i {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: #f8fafc;
-            width: 90px;
-            height: 90px;
-            line-height: 90px;
-            border-radius: 50%;
-            transition: all 0.4s;
-            color: var(--text-light);
-        }
-
-        .card:hover i {
+        /* Icon container */
+        .card .icon-wrap {
+            width: 100px;
+            height: 100px;
             background: white;
-            color: var(--primary);
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s;
+            position: relative;
         }
+
+        .card:hover .icon-wrap {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Colored accents */
+        .card.full .icon-wrap { color: #6366f1; background: #e0e7ff; }
+        .card.exam1 .icon-wrap { color: #10b981; background: #d1fae5; }
+        .card.exam2 .icon-wrap { color: #0ea5e9; background: #e0f2fe; }
+        .card.gallery .icon-wrap { color: #f97316; background: #ffedd5; }
 
         .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
             margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-            color: var(--text-main);
         }
 
         .card p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
         }
 
-        .card .stat {
-            font-weight: 700;
-            margin-top: 0.5rem;
-            font-size: 1.1rem;
+        .card .stat-badge {
+            background: var(--dark);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
         /* --- Quiz Interface --- */
         .quiz-layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 2rem;
+            grid-template-columns: 1fr 350px;
+            gap: 2.5rem;
             align-items: start;
         }
 
         .quiz-main {
             background: white;
-            border-radius: var(--radius-md);
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            position: relative;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .quiz-sidebar {
-            background: white;
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: calc(var(--header-height) + 20px);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .timer-container {
+        /* Timer */
+        .timer-wrap {
             width: 100%;
-            height: 6px;
-            background: #e2e8f0;
+            height: 8px;
+            background: #f1f5f9;
             border-radius: 10px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             overflow: hidden;
+            position: relative;
         }
 
         .timer-bar {
             height: 100%;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             width: 100%;
-            transition: width 1s linear, background-color 0.3s;
             border-radius: 10px;
+            transition: width 1s linear;
+            box-shadow: 0 0 10px var(--primary);
         }
 
+        /* Image Stage */
         .image-stage {
             width: 100%;
-            min-height: 300px; /* Better for mobile */
-            max-height: 500px;
+            min-height: 350px;
             background: #f8fafc;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-lg);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 2rem;
-            overflow: hidden;
-            border: 2px solid #edf2f7;
+            margin-bottom: 2.5rem;
+            border: 2px dashed #cbd5e1;
             position: relative;
+            overflow: hidden;
         }
 
         .image-stage img {
             max-width: 100%;
-            max-height: 100%;
+            max-height: 400px;
             object-fit: contain;
-            display: block;
+            transition: transform 0.3s;
         }
 
+        /* Options */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -396,36 +391,39 @@
         }
 
         .option-btn {
-            padding: 1.2rem;
             background: white;
             border: 2px solid #e2e8f0;
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
+            padding: 1.2rem;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
             cursor: pointer;
             transition: all 0.2s;
             text-align: left;
-            font-weight: 500;
-            color: var(--text-main);
-            line-height: 1.4;
+            position: relative;
+            overflow: hidden;
         }
 
         .option-btn:hover:not(:disabled) {
             border-color: var(--primary);
-            background: #f0f9ff;
+            background: var(--primary-light);
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .option-btn.correct {
             background: var(--success) !important;
             border-color: var(--success) !important;
             color: white !important;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .option-btn.wrong {
             background: var(--danger) !important;
             border-color: var(--danger) !important;
             color: white !important;
-            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
 
         @keyframes shake {
@@ -435,237 +433,224 @@
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
 
+        /* Feedback Box */
         .feedback-box {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: var(--radius-lg);
             text-align: center;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: var(--radius-sm);
-            background: #f8fafc;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            border: 1px solid #e2e8f0;
         }
 
         .quote-ar {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
         .next-btn {
-            background: var(--text-main);
+            background: var(--dark);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
+            padding: 14px 40px;
             font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
             cursor: pointer;
             display: none;
-            margin: 1rem auto 0;
+            margin: 0 auto;
             transition: transform 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .next-btn:hover { transform: scale(1.05); }
+
+        /* Sidebar */
+        .quiz-sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 100px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .next-btn:hover {
-            transform: translateY(-2px);
-            background: var(--primary);
+        .sidebar-stat {
+            margin-bottom: 1.5rem;
         }
+
+        .sidebar-stat small {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .sidebar-stat h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+        }
+        
+        #info-score { color: var(--success); }
 
         /* --- Gallery --- */
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .gallery-header h2 {
-            font-size: 1.8rem;
-            color: var(--text-main);
-        }
-
-        .gallery-container {
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
         .gallery-item {
             background: white;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid white;
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
         }
 
-        .g-img-box {
-            height: 160px;
+        .g-img-wrap {
+            height: 200px;
             background: #f1f5f9;
             position: relative;
+            overflow: hidden;
         }
 
-        .g-img-box img {
+        .g-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover .g-img-wrap img {
+            transform: scale(1.05);
         }
 
         .g-info {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
-        .g-name {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .g-diag {
-            font-weight: 600;
+        .g-info h4 {
             color: var(--primary);
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .g-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         /* --- Footer --- */
         footer {
-            background: white;
-            color: var(--text-light);
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            padding: 3rem;
+            color: var(--text-muted);
+            margin-top: 4rem;
             border-top: 1px solid #e2e8f0;
-            font-size: 0.9rem;
+            background: white;
         }
 
-        footer strong {
-            color: var(--primary);
-        }
-
-        /* --- Responsive (Mobile First Logic refined) --- */
-        
-        /* Tablets & Small Laptops */
+        /* --- Responsive --- */
         @media (max-width: 1024px) {
             .quiz-layout {
                 grid-template-columns: 1fr;
             }
             .quiz-sidebar {
-                order: -1;
                 position: static;
-                margin-bottom: 1rem;
+                margin-bottom: 2rem;
                 display: flex;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
-                padding: 1rem;
+                flex-wrap: wrap;
             }
-            .quiz-sidebar hr { display: none; }
-            .quiz-sidebar button { width: auto; margin-left: auto; }
+            .quiz-sidebar button { margin-top: 1rem; }
         }
 
-        /* Mobile Phones */
         @media (max-width: 768px) {
-            :root {
-                --header-height: 60px;
-            }
-
-            main {
-                padding: 1rem;
-            }
-
-            .brand h1 {
-                font-size: 1rem;
-            }
+            main { padding: 1.5rem 5%; }
             
-            .nav-controls span {
-                display: none; /* Hide text on very small screens, show icon only */
-            }
-
-            .dashboard-header h2 {
-                font-size: 1.5rem;
-            }
-
+            .section-title h2 { font-size: 2rem; }
+            
             .dashboard-grid {
-                grid-template-columns: 1fr; /* Stack cards */
-                gap: 1rem;
+                grid-template-columns: 1fr; /* Stack cards on mobile */
             }
 
             .card {
+                flex-direction: row; /* Horizontal cards on mobile for better use of space */
+                text-align: left;
                 padding: 1.5rem;
-                flex-direction: row; /* Horizontal cards on mobile for space efficiency? No, vertical is safer for text */
-                flex-direction: column;
+                justify-content: flex-start;
+                gap: 1.5rem;
             }
 
-            /* Quiz Specific Mobile Adjustments */
-            .image-stage {
-                height: 250px; /* Smaller height on mobile */
-                margin-bottom: 1.5rem;
+            .card .icon-wrap {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+                margin-bottom: 0;
+                flex-shrink: 0;
+                border-radius: 20px;
             }
 
-            .options-grid {
-                grid-template-columns: 1fr; /* Stack buttons */
-                gap: 0.8rem;
-            }
+            .card:hover .icon-wrap { transform: none; } /* Disable rotation on mobile for stability */
 
-            .option-btn {
-                padding: 1rem;
-                font-size: 0.9rem;
-            }
-
-            /* Intro Modal Mobile */
-            #intro-modal {
-                align-items: flex-end; /* Slide from bottom */
-            }
-
+            .card h3 { font-size: 1.2rem; }
+            
+            /* Quiz Mobile */
+            .options-grid { grid-template-columns: 1fr; }
+            .image-stage { height: 250px; min-height: 250px; }
+            
+            /* Intro Mobile */
+            #intro-modal { padding: 0; align-items: flex-end; }
             .intro-content {
-                width: 100%;
                 max-width: 100%;
-                border-radius: 20px 20px 0 0;
-                padding: 2rem 1.5rem;
+                width: 100%;
+                border-radius: 24px 24px 0 0;
+                padding-bottom: 3rem;
                 animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             }
-
-            @keyframes slideUp {
-                from { transform: translateY(100%); }
-                to { transform: translateY(0); }
-            }
-
-            /* Sidebar Mobile Layout */
-            .quiz-sidebar {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
-            .quiz-sidebar div {
-                display: flex;
-                align-items: baseline;
-                gap: 10px;
-                width: 100%;
-                justify-content: space-between;
-            }
-            .quiz-sidebar h2 { font-size: 1.5rem; }
         }
-        
-        @media (max-width: 400px) {
-             .card h3 { font-size: 1.1rem; }
-             .card i { width: 70px; height: 70px; line-height: 70px; font-size: 2.5rem; }
+
+        /* Error State for Images */
+        .img-error-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #e2e8f0;
+            color: #64748b;
+            padding: 20px;
+            text-align: center;
         }
+        .img-error-placeholder i { font-size: 2rem; margin-bottom: 10px; }
 
     </style>
 </head>
 <body>
 
-    <!-- Intro Modal (Arabic) -->
+    <!-- Intro Modal -->
     <div id="intro-modal">
         <div class="intro-content">
             <div class="intro-logo">
@@ -673,17 +658,16 @@
             </div>
             <div class="intro-text ar-text">
                 <h3>أهلاً بك يا بطل في Oral Bossology</h3>
-                <p>هذا الموقع مصمم خصيصاً ليجعلك "الزعيم" فى Oral Pathology.</p>
-                <p>واجهتنا تحتوي على:</p>
-                <ul>
-                    <li>اختبار شامل (Master Quiz) لجميع الحالات.</li>
-                    <li>اختبارات سريعة (Exams) للتدريب المكثف.</li>
-                    <li>معرض صور كامل للمراجعة.</li>
-                    <li>رجى العلم أن هذه الأسئلة مخصصة لغرض الاختبار فقط، وهي لا تحاكي شكل الامتحان.</li>
+                <p style="margin-top: 15px; color: var(--text-muted);">هذا الموقع مصمم خصيصاً ليجعلك "الزعيم" فى Oral Pathology.</p>
+                <ul style="margin: 20px 0; padding-right: 25px; text-align: right; color: var(--text-main);">
+                    <li style="margin-bottom: 8px;">اختبار شامل (Master Quiz) لجميع الحالات.</li>
+                    <li style="margin-bottom: 8px;">اختبارات سريعة (Exams) للتدريب المكثف.</li>
+                    <li style="margin-bottom: 8px;">معرض صور كامل للمراجعة.</li>
+                    <li style="margin-bottom: 8px; font-size: 0.9em; color: var(--danger);">*الأسئلة لغرض الاختبار فقط.</li>
                 </ul>
-                <p>تذكر: الإصرار هو مفتاح النجاح، ولا تنسَ الدعاء لـ The Boss.</p>
+                <p style="font-weight: 700;">تذكر: الإصرار هو مفتاح النجاح.</p>
             </div>
-            <button class="btn-enter ar-text" onclick="closeIntro()">دخول للموقع</button>
+            <button class="btn-enter ar-text" onclick="closeIntro()">ابدأ التحدي الآن</button>
         </div>
     </div>
 
@@ -694,8 +678,8 @@
             <h1>Oral Bossology</h1>
         </div>
         <div class="nav-controls">
-            <button onclick="resetProgress()"><i class="fas fa-sync-alt"></i> <span>Reset</span></button>
-            <button onclick="showDashboard()"><i class="fas fa-home"></i> <span>Menu</span></button>
+            <button onclick="resetProgress()"><i class="fas fa-rotate-left"></i> <span>Reset</span></button>
+            <button onclick="showDashboard()"><i class="fas fa-th-large"></i> <span>Menu</span></button>
         </div>
     </header>
 
@@ -704,46 +688,62 @@
         
         <!-- 1. Dashboard View -->
         <section id="dashboard-view" class="view active">
-            <div class="dashboard-header">
-                <h2>Select Your Mode</h2>
-                <p style="color: var(--text-light);">Choose the challenge level to begin.</p>
+            <div class="section-title">
+                <h2>Master Your Pathology</h2>
+                <p>Select your challenge mode to begin your journey.</p>
             </div>
             
             <div class="dashboard-grid">
                 <!-- Master Quiz -->
                 <div class="card full" onclick="startQuiz('full')">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Master Quiz</h3>
-                    <p>The Complete Challenge</p>
-                    <p class="stat" style="color: #6c5ce7;">122 Questions</p>
-                    <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">Cover all cases comprehensively</p>
+                    <div class="icon-wrap">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h3>Master Quiz</h3>
+                        <p>The Ultimate Challenge</p>
+                        <div class="stat-badge">122 Questions</div>
+                        <p style="font-size: 0.9rem;">Complete curriculum coverage</p>
+                    </div>
                 </div>
 
                 <!-- Exam 1 -->
                 <div class="card exam1" onclick="startQuiz('exam1')">
-                    <i class="fas fa-stopwatch"></i>
-                    <h3>Rapid Assessment I</h3>
-                    <p>Timed Exam</p>
-                    <p class="stat" style="color: #00b894;">30 Questions</p>
-                    <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">Randomly selected from pool</p>
+                    <div class="icon-wrap">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <h3>Rapid Assessment I</h3>
+                        <p>Timed Speed Test</p>
+                        <div class="stat-badge" style="background: var(--success);">30 Questions</div>
+                        <p style="font-size: 0.9rem;">Randomized high-yield cases</p>
+                    </div>
                 </div>
 
                 <!-- Exam 2 -->
                 <div class="card exam2" onclick="startQuiz('exam2')">
-                    <i class="fas fa-brain"></i>
-                    <h3>Rapid Assessment II</h3>
-                    <p>Timed Exam</p>
-                    <p class="stat" style="color: #0984e3;">30 Questions</p>
-                    <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">A new random set</p>
+                    <div class="icon-wrap">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3>Rapid Assessment II</h3>
+                        <p>Another Round</p>
+                        <div class="stat-badge" style="background: var(--accent);">30 Questions</div>
+                        <p style="font-size: 0.9rem;">Test your consistency</p>
+                    </div>
                 </div>
 
                 <!-- Gallery -->
                 <div class="card gallery" onclick="showGallery()">
-                    <i class="fas fa-images"></i>
-                    <h3>Case Gallery</h3>
-                    <p>Study Reference</p>
-                    <p class="stat" style="color: #e17055;">View All 122</p>
-                    <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">Browse images & diagnoses</p>
+                    <div class="icon-wrap">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div>
+                        <h3>Case Gallery</h3>
+                        <p>Visual Library</p>
+                        <div class="stat-badge" style="background: var(--warning);">View All</div>
+                        <p style="font-size: 0.9rem;">Browse the full collection</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -751,18 +751,18 @@
         <!-- 2. Quiz View -->
         <section id="quiz-view" class="view">
             <div class="quiz-layout">
-                <!-- Main Image & Options -->
+                <!-- Main Area -->
                 <div class="quiz-main">
-                    <div class="timer-container">
+                    <div class="timer-wrap">
                         <div id="timer-bar" class="timer-bar"></div>
                     </div>
 
-                    <div class="image-stage">
-                        <img id="q-image" src="" alt="Slide">
+                    <div class="image-stage" id="image-container">
+                        <img id="q-image" src="" alt="Case Slide">
                     </div>
 
                     <div id="options-area" class="options-grid">
-                        <!-- Buttons injected via JS -->
+                        <!-- Options injected via JS -->
                     </div>
 
                     <div class="feedback-box">
@@ -771,29 +771,35 @@
                     </div>
                 </div>
 
-                <!-- Sidebar Info -->
+                <!-- Sidebar -->
                 <div class="quiz-sidebar">
-                    <div>
-                        <small style="color:var(--text-light); font-weight:600; text-transform:uppercase; font-size:0.75rem;">Progress</small>
-                        <h2 id="info-progress" style="color: var(--text-main);">1 / 30</h2>
+                    <div class="sidebar-stat">
+                        <small>Progress</small>
+                        <h2 id="info-progress">1 / 30</h2>
                     </div>
-                    <div>
-                        <small style="color:var(--text-light); font-weight:600; text-transform:uppercase; font-size:0.75rem;">Current Score</small>
-                        <h2 id="info-score" style="color: var(--success);">0</h2>
+                    <div class="sidebar-stat">
+                        <small>Score</small>
+                        <h2 id="info-score">0</h2>
                     </div>
-                    <hr style="border: 0; border-top: 1px solid #eee; margin: 1rem 0; width:100%;">
-                    <button onclick="showDashboard()" style="width: 100%; padding: 10px; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer; color: var(--danger); font-weight:600;">Exit to Menu</button>
+                    <div style="margin-top: 20px;">
+                        <button onclick="showDashboard()" style="width: 100%; padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--text-main);">Exit Quiz</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 3. Gallery View -->
         <section id="gallery-view" class="view">
-            <div class="gallery-header">
-                <h2>Complete Case Library</h2>
-                <button onclick="showDashboard()" style="background: var(--text-main); color: white; padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight:600;">Back</button>
+            <div class="section-title" style="text-align: left; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h2>Case Library</h2>
+                    <p>Full visual reference for all 122 cases.</p>
+                </div>
+                <button onclick="showDashboard()" class="nav-controls button" style="background: var(--dark); color: white; padding: 10px 24px; border-radius: 30px; border: none; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
             </div>
-            <div id="gallery-grid" class="gallery-container">
+            <div id="gallery-grid" class="gallery-grid">
                 <!-- Gallery Items JS -->
             </div>
         </section>
@@ -805,7 +811,7 @@
     </footer>
 
     <script>
-        // --- 1. Database (Same as before) ---
+        // --- 1. Database ---
         const rawData = [
             { id: "2-001.JPG", answer: "Hyperparakeratosis" },
             { id: "2-002.JPG", answer: "Acanthosis" },
@@ -956,32 +962,24 @@
             questions: [],
             index: 0,
             score: 0,
-            mode: null // 'full', 'exam1', 'exam2'
+            mode: null
         };
         
-        const STORAGE_KEY = 'oral_bossology_v2';
+        const STORAGE_KEY = 'oral_bossology_pro';
         let timerInterval;
 
         // --- 3. Core Functions ---
 
         function init() {
-            // Render Gallery first
             renderGallery();
 
-            // Check for saved progress
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 currentQuiz = JSON.parse(saved);
-                // Jump directly to question if progress exists
                 loadQuestion();
             } else {
-                // Show Intro if first time (no storage)
-                // If you want intro EVERY time, remove the 'else' check, 
-                // but standard UX is to check if new user.
-                // Assuming user wants intro on load:
                 const modal = document.getElementById('intro-modal');
                 modal.style.display = 'flex';
-                // Small timeout to allow display flex to apply before adding class for opacity transition
                 setTimeout(() => modal.classList.add('show'), 10);
             }
         }
@@ -990,9 +988,7 @@
             const modal = document.getElementById('intro-modal');
             modal.classList.remove('show');
             modal.style.opacity = '0';
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 400);
+            setTimeout(() => modal.style.display = 'none', 400);
         }
 
         function switchView(viewId) {
@@ -1011,19 +1007,15 @@
         }
 
         function startQuiz(mode) {
-            // Prepare Data
             let questions = [];
             
             if (mode === 'full') {
-                // Use all 122
                 questions = shuffleArray([...rawData]);
             } else {
-                // Use random 30
                 const all = shuffleArray([...rawData]);
                 questions = all.slice(0, 30);
             }
 
-            // Reset State
             currentQuiz = {
                 questions: questions,
                 index: 0,
@@ -1045,20 +1037,27 @@
 
             const q = currentQuiz.questions[currentQuiz.index];
             
-            // UI Updates
             document.getElementById('info-progress').innerText = `${currentQuiz.index + 1} / ${currentQuiz.questions.length}`;
             document.getElementById('info-score').innerText = currentQuiz.score;
             document.getElementById('quote-display').innerText = "";
             document.getElementById('btn-next').style.display = "none";
             
-            // Image
+            // Image Handling with robust error display
+            const imgContainer = document.getElementById('image-container');
+            imgContainer.innerHTML = `<img id="q-image" src="images/${q.id}" alt="${q.id}">`;
+            
             const imgEl = document.getElementById('q-image');
-            imgEl.src = `images/${q.id}`;
+            
             imgEl.onerror = function() {
-                this.src = `https://via.placeholder.com/600x400?text=${q.id}`;
+                imgContainer.innerHTML = `
+                    <div class="img-error-placeholder">
+                        <i class="far fa-image"></i>
+                        <p>Image Not Found</p>
+                        <small>${q.id}</small>
+                    </div>
+                `;
             };
 
-            // Options
             const options = generateOptions(q);
             const optsContainer = document.getElementById('options-area');
             optsContainer.innerHTML = '';
@@ -1071,7 +1070,6 @@
                 optsContainer.appendChild(btn);
             });
 
-            // Timer
             startTimer();
             saveProgress();
         }
@@ -1088,16 +1086,16 @@
             clearInterval(timerInterval);
             const bar = document.getElementById('timer-bar');
             let width = 100;
-            const duration = 50; // seconds
+            const duration = 50;
 
             bar.style.width = '100%';
-            bar.style.backgroundColor = 'var(--primary)';
+            bar.style.background = 'linear-gradient(90deg, var(--primary), var(--accent))';
 
             timerInterval = setInterval(() => {
                 width -= (100 / duration);
                 bar.style.width = width + '%';
                 
-                if(width < 30) bar.style.backgroundColor = 'var(--danger)';
+                if(width < 30) bar.style.background = 'var(--danger)';
                 
                 if (width <= 0) {
                     clearInterval(timerInterval);
@@ -1110,7 +1108,6 @@
             const btns = document.querySelectorAll('.option-btn');
             btns.forEach(b => b.disabled = true);
             
-            // Show correct
             const q = currentQuiz.questions[currentQuiz.index];
             btns.forEach(b => {
                 if(b.innerText === q.answer) b.classList.add('correct');
@@ -1137,7 +1134,6 @@
                 quoteEl.style.color = "var(--primary)";
             } else {
                 btn.classList.add('wrong');
-                // Highlight correct
                 btns.forEach(b => {
                     if(b.innerText === correct) b.classList.add('correct');
                 });
@@ -1156,6 +1152,7 @@
 
         function finishQuiz() {
             clearInterval(timerInterval);
+            // Using a custom styled alert logic or standard alert if preferred, keeping standard for functionality
             alert(`Quiz Completed!\nYour Score: ${currentQuiz.score} / ${currentQuiz.questions.length}`);
             localStorage.removeItem(STORAGE_KEY);
             showDashboard();
@@ -1166,7 +1163,7 @@
         }
 
         function resetProgress() {
-            if(confirm("Reset all progress and return to menu?")) {
+            if(confirm("Reset all progress?")) {
                 localStorage.removeItem(STORAGE_KEY);
                 location.reload();
             }
@@ -1187,20 +1184,25 @@
             sorted.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
+                
+                // Create a wrapper for the image to handle the error state in the gallery too
                 div.innerHTML = `
-                    <div class="g-img-box">
-                        <img src="images/${item.id}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=No+Img'">
+                    <div class="g-img-wrap">
+                        <img src="images/${item.id}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="img-error-placeholder" style="display:none; height:100%; font-size:0.8rem;">
+                            <i class="far fa-image"></i>
+                            <span>${item.id}</span>
+                        </div>
                     </div>
                     <div class="g-info">
-                        <div class="g-name">${item.id}</div>
-                        <div class="g-diag">${item.answer}</div>
+                        <h4>${item.answer}</h4>
+                        <span>${item.id}</span>
                     </div>
                 `;
                 grid.appendChild(div);
             });
         }
 
-        // Init
         window.onload = init;
 
     </script>
