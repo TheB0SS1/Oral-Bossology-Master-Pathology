@@ -16,6 +16,7 @@
             --primary-light: #e6f0fa; /* Very Light Blue Background */
             --primary-dark: #004080;
             --accent: #00aaff;        /* Bright Accent */
+            --flashcard-accent: #7c3aed; /* Distinct Purple for the "Ad/Feature" look */
             --text-main: #1a202c;     /* Dark Grey/Black for text */
             --text-muted: #64748b;
             --white: #ffffff;
@@ -305,6 +306,32 @@
             background: #ccc;
         }
 
+        /* FLASHCARD CARD (The "Ad" Look) */
+        .card.flashcards {
+            grid-column: 1 / -1; /* Spans full width on desktop if desired, or just 1fr */
+            background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+            border-color: #ddd6fe;
+        }
+        
+        .card.flashcards::after {
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--flashcard-accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+            z-index: 2;
+        }
+
         .card.full::after { background: linear-gradient(90deg, #4f46e5, #6366f1); }
         .card.exam1::after { background: linear-gradient(90deg, #059669, #10b981); }
         .card.exam2::after { background: linear-gradient(90deg, #0284c7, #0ea5e9); }
@@ -328,6 +355,7 @@
             transform: rotate(10deg) scale(1.1);
         }
 
+        .card.flashcards .icon-box { color: var(--flashcard-accent); background: white; }
         .card.full .icon-box { color: #4f46e5; background: #eef2ff; }
         .card.exam1 .icon-box { color: #059669; background: #ecfdf5; }
         .card.exam2 .icon-box { color: #0284c7; background: #e0f2fe; }
@@ -338,6 +366,109 @@
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 0.5rem;
+        }
+
+        /* --- Flashcards View (Flip Effect) --- */
+        .flashcard-stage {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 600px;
+            height: 450px;
+            margin: 0 auto 3rem;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-hover);
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 2px solid var(--white);
+        }
+
+        .flashcard-front {
+            background: #ffffff;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #f5f3ff, #ffffff);
+            transform: rotateY(180deg);
+            border-color: var(--flashcard-accent);
+        }
+
+        .flashcard-front img {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+        }
+
+        .flashcard-back h2 {
+            color: var(--flashcard-accent);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .flashcard-back span {
+            font-size: 0.9rem;
+            color: #888;
+            background: #eee;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .fc-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fc-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .fc-btn.primary {
+            background: var(--primary);
+            color: white;
+            border: none;
         }
 
         /* --- Quiz Interface --- */
@@ -538,6 +669,7 @@
         @media (max-width: 1024px) {
             .quiz-layout { grid-template-columns: 1fr; }
             .quiz-sidebar { position: static; margin-bottom: 2rem; display: flex; justify-content: space-around; }
+            .card.flashcards { grid-column: auto; } /* Reset span on tablet */
         }
 
         @media (max-width: 768px) {
@@ -548,6 +680,7 @@
             #intro-modal { align-items: flex-end; padding: 0; }
             .intro-content { border-radius: 30px 30px 0 0; width: 100%; max-width: 100%; animation: slideUp 0.4s; }
             @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+            .flashcard-stage { height: 350px; }
         }
         
         .img-error-placeholder {
@@ -576,8 +709,8 @@
                 <h3>أهلاً بك يا بطل في Oral Bossology</h3>
                 <p style="margin-top: 15px; color: #555;">هذا الموقع مصمم خصيصاً ليجعلك "الزعيم" فى Oral Pathology.</p>
                 <ul style="margin: 20px 0; padding-right: 25px; text-align: right; color: #555;">
+                    <li style="margin-bottom: 8px;">نظام فلاش كارد عشوائي (Flashcards).</li>
                     <li style="margin-bottom: 8px;">اختبار شامل (Master Quiz).</li>
-                    <li style="margin-bottom: 8px;">اختبارات سريعة (Exams).</li>
                     <li style="margin-bottom: 8px;">معرض صور كامل.</li>
                 </ul>
                 <p style="font-weight: 700; color: var(--primary);">الإصرار هو مفتاح النجاح.</p>
@@ -609,6 +742,17 @@
             </div>
             
             <div class="dashboard-grid">
+                <!-- 1. Flashcards (New Feature - First Box) -->
+                <div class="card flashcards" onclick="startFlashcards()">
+                    <div class="new-badge">NEW</div>
+                    <div class="icon-box"><i class="fas fa-layer-group"></i></div>
+                    <h3>Interactive Flashcards</h3>
+                    <p>Visual Study Mode</p>
+                    <div style="margin-top:10px; font-weight:700; color:var(--flashcard-accent);">122 Cards</div>
+                    <p style="font-size: 0.85rem; margin-top: 8px; color: #6d28d9;">Shuffled Randomly</p>
+                </div>
+
+                <!-- 2. Master Quiz -->
                 <div class="card full" onclick="startQuiz('full')">
                     <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Master Quiz</h3>
@@ -616,6 +760,7 @@
                     <div style="margin-top:10px; font-weight:700; color:#4f46e5;">122 Questions</div>
                 </div>
 
+                <!-- 3. Exam 1 -->
                 <div class="card exam1" onclick="startQuiz('exam1')">
                     <div class="icon-box"><i class="fas fa-stopwatch"></i></div>
                     <h3>Rapid Assessment I</h3>
@@ -623,6 +768,7 @@
                     <div style="margin-top:10px; font-weight:700; color:#059669;">30 Questions</div>
                 </div>
 
+                <!-- 4. Exam 2 -->
                 <div class="card exam2" onclick="startQuiz('exam2')">
                     <div class="icon-box"><i class="fas fa-brain"></i></div>
                     <h3>Rapid Assessment II</h3>
@@ -630,12 +776,49 @@
                     <div style="margin-top:10px; font-weight:700; color:#0284c7;">30 Questions</div>
                 </div>
 
+                <!-- 5. Gallery -->
                 <div class="card gallery" onclick="showGallery()">
                     <div class="icon-box"><i class="fas fa-images"></i></div>
                     <h3>Case Gallery</h3>
                     <p>Visual Library</p>
                     <div style="margin-top:10px; font-weight:700; color:#ea580c;">View All</div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Flashcards View (New) -->
+        <section id="flashcards-view" class="view">
+            <div class="section-title">
+                <h2>Flashcards</h2>
+                <p>Study efficiently. Click the card to flip.</p>
+            </div>
+
+            <div class="flashcard-stage" onclick="flipCard()">
+                <div class="flashcard-inner" id="fc-inner">
+                    <div class="flashcard-front">
+                        <!-- Image -->
+                        <div id="fc-img-container" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+                            <!-- Injected via JS -->
+                        </div>
+                        <p style="position:absolute; bottom:20px; color:#aaa; font-size:0.9rem; pointer-events:none;">
+                            <i class="fas fa-sync-alt"></i> Tap to Flip
+                        </p>
+                    </div>
+                    <div class="flashcard-back">
+                        <span id="fc-id">ID</span>
+                        <h2 id="fc-answer" style="text-align:center;">Diagnosis</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button class="fc-btn" onclick="prevFlashcard(event)"><i class="fas fa-chevron-left"></i> Previous</button>
+                <button class="fc-btn" onclick="shuffleFlashcards(event)"><i class="fas fa-random"></i> Reshuffle</button>
+                <button class="fc-btn primary" onclick="nextFlashcard(event)">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <div style="text-align:center; margin-top:2rem;">
+                <button onclick="showDashboard()" class="fc-btn" style="display:inline-flex; border-radius:50px;">Exit to Menu</button>
             </div>
         </section>
 
@@ -835,6 +1018,7 @@
             "أنت قدوة للجميع.", "استمر ولا ترجع للوراء.", "الله ينور دربك يا بطل."
         ];
 
+        // State Variables
         let currentQuiz = {
             questions: [],
             index: 0,
@@ -842,36 +1026,27 @@
             mode: null
         };
         
-        const STORAGE_KEY = 'oral_bossology_v4';
+        // Flashcard State
+        let flashcardData = [];
+        let fcIndex = 0;
+
+        const STORAGE_KEY = 'oral_bossology_v5';
         let timerInterval;
 
-        /* 
-           --- SMART IMAGE LOADER FUNCTION ---
-           Tries to load the image. If it fails (case sensitivity issue),
-           it tries toggling the extension casing (.JPG <-> .jpg).
-        */
+        // --- SMART IMAGE LOADER ---
         function smartLoadImage(imgElement, filename, containerElement = null) {
-            // Helper to set source
             const setSrc = (src) => { imgElement.src = src; };
-            
-            // Initial Load
             setSrc(filename);
 
             imgElement.onerror = function() {
-                // If error, try switching extension case
                 const lowerName = filename.toLowerCase();
                 const upperName = filename.toUpperCase();
 
-                // If it was uppercase, try lowercase
                 if (filename !== lowerName) {
                     setSrc(lowerName);
-                } 
-                // If it was lowercase, try uppercase
-                else if (filename !== upperName) {
+                } else if (filename !== upperName) {
                     setSrc(upperName);
-                } 
-                // If that also fails, show error placeholder
-                else {
+                } else {
                     if (containerElement) {
                         containerElement.innerHTML = `
                             <div class="img-error-placeholder">
@@ -881,7 +1056,6 @@
                             </div>
                         `;
                     } else {
-                        // Fallback for gallery images where we might not replace whole container
                         imgElement.style.display = 'none';
                         const errorDiv = document.createElement('div');
                         errorDiv.className = 'img-error-placeholder';
@@ -930,6 +1104,61 @@
             switchView('gallery-view');
         }
 
+        // --- FLASHCARD FUNCTIONS ---
+        function startFlashcards() {
+            // Initialize flashcard data SHUFFLED RANDOMLY
+            flashcardData = shuffleArray([...rawData]); 
+            fcIndex = 0;
+            switchView('flashcards-view');
+            renderFlashcard();
+        }
+
+        function renderFlashcard() {
+            const card = flashcardData[fcIndex];
+            const inner = document.getElementById('fc-inner');
+            
+            // Reset flip state
+            inner.classList.remove('is-flipped');
+            
+            // Wait for unflip before changing content (optional, but smoother)
+            setTimeout(() => {
+                document.getElementById('fc-id').innerText = card.id;
+                document.getElementById('fc-answer').innerText = card.answer;
+                
+                const imgContainer = document.getElementById('fc-img-container');
+                imgContainer.innerHTML = `<img id="fc-img-el" style="max-width:100%; max-height:300px; object-fit:contain;" alt="${card.id}">`;
+                smartLoadImage(document.getElementById('fc-img-el'), card.id, imgContainer);
+            }, 200);
+        }
+
+        function flipCard() {
+            document.getElementById('fc-inner').classList.toggle('is-flipped');
+        }
+
+        function nextFlashcard(e) {
+            e.stopPropagation(); // Prevent flip
+            if (fcIndex < flashcardData.length - 1) {
+                fcIndex++;
+                renderFlashcard();
+            }
+        }
+
+        function prevFlashcard(e) {
+            e.stopPropagation();
+            if (fcIndex > 0) {
+                fcIndex--;
+                renderFlashcard();
+            }
+        }
+
+        function shuffleFlashcards(e) {
+            e.stopPropagation();
+            flashcardData = shuffleArray([...rawData]);
+            fcIndex = 0;
+            renderFlashcard();
+        }
+
+        // --- QUIZ FUNCTIONS ---
         function startQuiz(mode) {
             let questions = [];
             if (mode === 'full') {
@@ -959,7 +1188,6 @@
             imgContainer.innerHTML = `<img id="q-image" style="max-height:400px;" alt="${q.id}">`;
             const imgEl = document.getElementById('q-image');
             
-            // --- USING SMART LOADER ---
             smartLoadImage(imgEl, q.id, imgContainer);
 
             const options = generateOptions(q);
@@ -1070,13 +1298,9 @@
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
                 
-                // Create Image Element
                 const img = document.createElement('img');
                 img.loading = 'lazy';
                 img.alt = item.id;
-                
-                // --- USING SMART LOADER FOR GALLERY ---
-                // We pass null as container to use the specific gallery fallback logic inside the function
                 smartLoadImage(img, item.id, null);
                 
                 const imgBox = document.createElement('div');
