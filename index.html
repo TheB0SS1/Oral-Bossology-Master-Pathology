@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Oral Bossology | Pro Pathology</title>
+    <title>Oral Bossology | TheBoss Exclusive</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -11,19 +11,21 @@
     
     <style>
         :root {
-            /* Professional White & Blue Palette */
-            --primary: #0066cc;       /* Strong Medical Blue */
-            --primary-light: #e6f0fa; /* Very Light Blue Background */
+            /* Palette */
+            --primary: #0066cc;
+            --primary-light: #e6f0fa;
             --primary-dark: #004080;
-            --accent: #00aaff;        /* Bright Accent */
-            --flashcard-accent: #7c3aed; /* Distinct Purple for the "Ad/Feature" look */
-            --text-main: #1a202c;     /* Dark Grey/Black for text */
+            --accent: #00aaff;
+            
+            --typing-accent: #db2777; /* Pink for Typing Mode */
+            --chapters-accent: #059669;
+            --flashcard-accent: #7c3aed;
+            
+            --text-main: #1a202c;
             --text-muted: #64748b;
             --white: #ffffff;
             
             /* Glass & Shadows */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.8);
             --shadow-soft: 0 10px 40px -10px rgba(0, 102, 204, 0.15);
             --shadow-hover: 0 20px 50px -12px rgba(0, 102, 204, 0.25);
             
@@ -49,18 +51,14 @@
             position: relative;
         }
 
-        /* --- Animated Background Blobs --- */
+        /* --- Background --- */
         .bg-animation {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: -1;
             overflow: hidden;
             background: #ffffff;
         }
-
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -68,33 +66,9 @@
             opacity: 0.6;
             animation: floatBlob 20s infinite ease-in-out;
         }
-
-        .blob-1 {
-            width: 600px;
-            height: 600px;
-            background: #dbeafe;
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 500px;
-            background: #e0e7ff;
-            bottom: -100px;
-            right: -100px;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            width: 300px;
-            height: 300px;
-            background: #bae6fd;
-            top: 40%;
-            left: 40%;
-            animation-delay: -10s;
-        }
+        .blob-1 { width: 600px; height: 600px; background: #dbeafe; top: -100px; left: -100px; animation-delay: 0s; }
+        .blob-2 { width: 500px; height: 500px; background: #e0e7ff; bottom: -100px; right: -100px; animation-delay: -5s; }
+        .blob-3 { width: 300px; height: 300px; background: #bae6fd; top: 40%; left: 40%; animation-delay: -10s; }
 
         @keyframes floatBlob {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -102,18 +76,12 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
 
-        /* Arabic Font */
-        .ar-text {
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-            line-height: 1.8;
-        }
+        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; line-height: 1.8; }
 
         /* --- Header --- */
         header {
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 102, 204, 0.05);
             position: sticky;
             top: 0;
@@ -123,24 +91,9 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand i {
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-
-        .brand h1 {
-            font-weight: 800;
-            font-size: 1.4rem;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand i { font-size: 1.8rem; color: var(--primary); }
+        .brand h1 { font-weight: 800; font-size: 1.4rem; color: var(--primary-dark); letter-spacing: -0.5px; }
 
         .nav-controls button {
             background: var(--white);
@@ -157,521 +110,196 @@
             align-items: center;
             gap: 8px;
         }
-
-        .nav-controls button:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-        }
+        .nav-controls button:hover { transform: translateY(-2px); border-color: var(--primary); color: var(--primary); }
 
         /* --- Main Layout --- */
-        main {
-            padding: 3rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .view {
-            display: none;
-            animation: slideUpFade 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .view.active {
-            display: block;
-        }
-
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        main { padding: 3rem 5%; max-width: 1400px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+        .view { display: none; animation: slideUpFade 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .view.active { display: block; }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Intro Modal --- */
         #intro-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            position: fixed; inset: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px;
         }
-        
         #intro-modal.show { display: flex; }
-
         .intro-content {
-            background: var(--white);
-            width: 100%;
-            max-width: 480px;
-            padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 30px 60px -12px rgba(0, 102, 204, 0.25);
-            text-align: center;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.8);
-            transform: scale(0.95);
-            opacity: 0;
-            transition: all 0.4s ease;
+            background: var(--white); width: 100%; max-width: 500px; padding: 3rem;
+            border-radius: 30px; box-shadow: 0 30px 60px -12px rgba(0, 102, 204, 0.25);
+            text-align: center; transform: scale(0.95); opacity: 0; transition: all 0.4s ease;
         }
-
-        #intro-modal.show .intro-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        .intro-logo {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
+        #intro-modal.show .intro-content { transform: scale(1); opacity: 1; }
+        .intro-logo { font-size: 4rem; margin-bottom: 1.5rem; background: -webkit-linear-gradient(45deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
         .btn-enter {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 2rem;
-            box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3);
-            transition: transform 0.2s;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none;
+            padding: 16px 40px; font-size: 1.1rem; font-weight: 700; border-radius: 50px; cursor: pointer;
+            width: 100%; margin-top: 2rem; box-shadow: 0 10px 20px rgba(0, 102, 204, 0.3); transition: transform 0.2s;
         }
-
         .btn-enter:active { transform: scale(0.96); }
 
         /* --- Dashboard Cards --- */
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-title h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem;
-        }
+        .section-title { text-align: center; margin-bottom: 4rem; }
+        .section-title h2 { font-size: 3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 0.5rem; letter-spacing: -1px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
 
         .card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--white);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--white);
+            border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; box-shadow: var(--shadow-soft);
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;
         }
-
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Gradient overlays for cards */
+        .card:hover { transform: translateY(-12px); box-shadow: var(--shadow-hover); }
         .card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #ccc;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #ccc;
         }
 
-        /* FLASHCARD CARD (The "Ad" Look) */
-        .card.flashcards {
-            grid-column: 1 / -1; /* Spans full width on desktop if desired, or just 1fr */
-            background: linear-gradient(135deg, #f5f3ff, #ede9fe);
-            border-color: #ddd6fe;
-        }
+        /* Card Styles */
+        .card.flashcards { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-color: #ddd6fe; }
+        .card.flashcards::after { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
         
-        .card.flashcards::after {
-            background: linear-gradient(90deg, #7c3aed, #a78bfa);
-        }
+        .card.mcq { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; }
+        .card.mcq::after { background: linear-gradient(90deg, #0066cc, #00aaff); }
 
-        .new-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--flashcard-accent);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
-            z-index: 2;
-        }
-
-        .card.full::after { background: linear-gradient(90deg, #4f46e5, #6366f1); }
+        .card.typing { background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-color: #fbcfe8; }
+        .card.typing::after { background: linear-gradient(90deg, #db2777, #f472b6); }
+        
         .card.exam1::after { background: linear-gradient(90deg, #059669, #10b981); }
         .card.exam2::after { background: linear-gradient(90deg, #0284c7, #0ea5e9); }
         .card.gallery::after { background: linear-gradient(90deg, #ea580c, #f97316); }
+        .card.chapters { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; }
+        .card.chapters::after { background: linear-gradient(90deg, #059669, #34d399); }
+
+        .new-badge {
+            position: absolute; top: 15px; right: 15px; background: var(--primary); color: white;
+            font-size: 0.7rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;
+            text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 2;
+        }
 
         .card .icon-box {
-            width: 90px;
-            height: 90px;
-            background: white;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s;
+            width: 90px; height: 90px; background: white; border-radius: 24px; display: flex;
+            align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); transition: all 0.4s;
         }
+        .card:hover .icon-box { transform: rotate(10deg) scale(1.1); }
 
-        .card:hover .icon-box {
-            transform: rotate(10deg) scale(1.1);
-        }
-
-        .card.flashcards .icon-box { color: var(--flashcard-accent); background: white; }
+        .card.flashcards .icon-box { color: var(--flashcard-accent); }
+        .card.mcq .icon-box { color: var(--primary); }
+        .card.typing .icon-box { color: var(--typing-accent); }
+        .card.chapters .icon-box { color: var(--chapters-accent); }
         .card.full .icon-box { color: #4f46e5; background: #eef2ff; }
         .card.exam1 .icon-box { color: #059669; background: #ecfdf5; }
         .card.exam2 .icon-box { color: #0284c7; background: #e0f2fe; }
         .card.gallery .icon-box { color: #ea580c; background: #fff7ed; }
 
-        .card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-        }
+        .card h3 { font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
 
-        /* --- Flashcards View (Flip Effect) --- */
-        .flashcard-stage {
-            perspective: 1000px;
-            width: 100%;
-            max-width: 600px;
-            height: 450px;
-            margin: 0 auto 3rem;
-            cursor: pointer;
+        /* --- Typing View Styles --- */
+        .typing-container {
+            background: white; padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
+            text-align: center; max-width: 600px; margin: 0 auto;
         }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
+        .typing-input-wrapper { position: relative; margin-top: 2rem; }
+        .typing-input {
+            width: 100%; padding: 1.2rem; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: var(--radius-md);
+            text-align: center; font-weight: 600; transition: 0.3s;
         }
-
-        .flashcard-inner.is-flipped {
-            transform: rotateY(180deg);
+        .typing-input:focus { border-color: var(--typing-accent); box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.1); }
+        
+        .suggestions-list {
+            position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm); margin-top: 5px; max-height: 200px; overflow-y: auto; z-index: 50;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
+        .suggestion-item {
+            padding: 12px; cursor: pointer; border-bottom: 1px solid #f1f5f9; font-size: 1rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .suggestion-item:hover { background: #fce7f3; color: var(--typing-accent); }
+        .suggestion-item:last-child { border-bottom: none; }
 
+        .feedback-msg { margin-top: 1.5rem; font-weight: 700; font-size: 1.2rem; min-height: 1.5em; }
+        .correct-msg { color: var(--success); }
+        .wrong-msg { color: var(--danger); animation: shake 0.4s; }
+
+        /* --- Generic Quiz/Flashcard Styles (Preserved) --- */
+        .flashcard-stage { perspective: 1000px; width: 100%; max-width: 600px; height: 450px; margin: 0 auto 3rem; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard-inner.is-flipped { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-hover);
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            border: 2px solid var(--white);
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-hover); background: white; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 2rem; border: 2px solid var(--white);
         }
+        .flashcard-back { background: linear-gradient(135deg, #f5f3ff, #ffffff); transform: rotateY(180deg); border-color: var(--flashcard-accent); }
+        .flashcard-front img { max-width: 100%; max-height: 350px; object-fit: contain; }
+        .flashcard-back h2 { color: var(--flashcard-accent); font-size: 1.8rem; margin-bottom: 0.5rem; line-height: 1.3; }
 
-        .flashcard-front {
-            background: #ffffff;
-        }
+        .quiz-layout { display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+        .quiz-main { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-soft); border: 1px solid var(--white); }
+        .timer-container { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; margin-bottom: 2rem; overflow: hidden; }
+        .timer-bar { height: 100%; background: var(--primary); width: 100%; transition: width 1s linear; box-shadow: 0 0 15px rgba(0, 102, 204, 0.4); }
+        .image-stage { width: 100%; min-height: 350px; background: #f8fafc; border-radius: var(--radius-md); display: flex; justify-content: center; align-items: center; margin-bottom: 2.5rem; border: 2px dashed #cbd5e1; overflow: hidden; position: relative; }
+        .image-stage img { max-width: 100%; max-height: 450px; object-fit: contain; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .option-btn { background: white; border: 2px solid #e2e8f0; padding: 1.2rem; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 500; color: var(--text-main); cursor: pointer; transition: all 0.2s; text-align: left; }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: #f0f9ff; color: var(--primary); transform: translateY(-2px); }
+        .option-btn.correct { background: var(--success) !important; border-color: var(--success) !important; color: white !important; }
+        .option-btn.wrong { background: var(--danger) !important; border-color: var(--danger) !important; color: white !important; animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
-        .flashcard-back {
-            background: linear-gradient(135deg, #f5f3ff, #ffffff);
-            transform: rotateY(180deg);
-            border-color: var(--flashcard-accent);
-        }
-
-        .flashcard-front img {
-            max-width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-        }
-
-        .flashcard-back h2 {
-            color: var(--flashcard-accent);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-
-        .flashcard-back span {
-            font-size: 0.9rem;
-            color: #888;
-            background: #eee;
-            padding: 4px 10px;
-            border-radius: 8px;
-        }
-
-        .flashcard-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .fc-btn {
-            background: white;
-            border: 1px solid #e2e8f0;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-main);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .fc-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .fc-btn.primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-        }
-
-        /* --- Quiz Interface --- */
-        .quiz-layout {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 2.5rem;
-            align-items: start;
-        }
-
-        .quiz-main {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--white);
-        }
-
-        .timer-container {
-            width: 100%;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .timer-bar {
-            height: 100%;
-            background: var(--primary);
-            width: 100%;
-            transition: width 1s linear;
-            box-shadow: 0 0 15px rgba(0, 102, 204, 0.4);
-        }
-
-        .image-stage {
-            width: 100%;
-            min-height: 350px;
-            background: #f8fafc;
-            border-radius: var(--radius-md);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            border: 2px dashed #cbd5e1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .image-stage img {
-            max-width: 100%;
-            max-height: 450px;
-            object-fit: contain;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .option-btn {
-            background: white;
-            border: 2px solid #e2e8f0;
-            padding: 1.2rem;
-            border-radius: var(--radius-sm);
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary);
-            background: #f0f9ff;
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .option-btn.correct {
-            background: var(--primary) !important;
-            border-color: var(--primary) !important;
-            color: white !important;
-        }
-
-        .option-btn.wrong {
-            background: #ef4444 !important;
-            border-color: #ef4444 !important;
-            color: white !important;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .feedback-box {
-            text-align: center;
-            margin-top: 2.5rem;
-            padding: 2rem;
-            background: #f8fafc;
-            border-radius: var(--radius-md);
-        }
-
-        .quote-ar {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-
-        .next-btn {
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            padding: 14px 35px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: none;
-            margin: 1rem auto 0;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
+        .feedback-box { text-align: center; margin-top: 2.5rem; padding: 2rem; background: #f8fafc; border-radius: var(--radius-md); }
+        .quote-ar { font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; }
+        .next-btn { background: var(--primary-dark); color: white; border: none; padding: 14px 35px; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; display: none; margin: 1rem auto 0; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
 
         /* Sidebar */
-        .quiz-sidebar {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-soft);
-            position: sticky;
-            top: 100px;
-            text-align: center;
-        }
-
+        .quiz-sidebar { background: white; padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); position: sticky; top: 100px; text-align: center; }
         .sidebar-stat { margin-bottom: 1.5rem; }
-        .sidebar-stat small {
-            display: block; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 1px;
-        }
+        .sidebar-stat small { display: block; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
         .sidebar-stat h2 { font-size: 2.5rem; color: var(--primary-dark); font-weight: 800; }
         
+        /* --- Chapters List View --- */
+        .chapters-container { max-width: 800px; margin: 0 auto; }
+        .chapter-item { background: white; border-radius: var(--radius-md); margin-bottom: 1.5rem; box-shadow: var(--shadow-soft); overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+        .chapter-header { padding: 1.5rem 2rem; cursor: pointer; background: linear-gradient(to right, #ffffff, #f8fafc); display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
+        .chapter-header:hover { background: #f1f5f9; }
+        .chapter-title { font-weight: 700; font-size: 1.2rem; color: var(--primary-dark); display: flex; align-items: center; gap: 12px; }
+        .chapter-icon { width: 40px; height: 40px; background: var(--primary-light); color: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .chapter-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #ffffff; }
+        .chapter-list { list-style: none; padding: 1rem 2rem 2rem; border-top: 1px solid #f1f5f9; }
+        .chapter-list li { padding: 0.8rem 0; color: var(--text-main); border-bottom: 1px dashed #e2e8f0; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+        .chapter-list li i { color: var(--chapters-accent); font-size: 0.8rem; }
+
         /* --- Gallery --- */
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-        }
-        
-        .gallery-header button {
-            background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: 600; cursor: pointer;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s;
-        }
-
+        .gallery-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+        .gallery-header button { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2rem; }
+        .gallery-item { background: white; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-soft); transition: all 0.3s; }
         .gallery-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
-
-        .g-img-box {
-            height: 200px;
-            background: #f1f5f9;
-            position: relative;
-        }
-        
+        .g-img-box { height: 200px; background: #f1f5f9; position: relative; }
         .g-img-box img { width: 100%; height: 100%; object-fit: cover; }
-
         .g-info { padding: 1.2rem; }
         .g-name { font-size: 0.8rem; color: var(--text-muted); }
         .g-diag { font-weight: 700; color: var(--primary); margin-top: 5px; }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-            margin-top: 5rem;
-            font-size: 0.9rem;
+        /* Controls */
+        .fc-btn, .control-btn {
+            background: white; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 12px; cursor: pointer;
+            font-weight: 600; color: var(--text-main); transition: all 0.2s; display: flex; align-items: center; gap: 8px;
         }
+        .fc-btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+        .fc-btn.primary { background: var(--primary); color: white; border: none; }
+        .controls-wrapper { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+        /* Footer */
+        footer { text-align: center; padding: 3rem; color: var(--text-muted); margin-top: 5rem; font-size: 0.9rem; border-top: 1px solid #e2e8f0; background: white; }
 
         /* Responsive */
         @media (max-width: 1024px) {
             .quiz-layout { grid-template-columns: 1fr; }
             .quiz-sidebar { position: static; margin-bottom: 2rem; display: flex; justify-content: space-around; }
-            .card.flashcards { grid-column: auto; } /* Reset span on tablet */
+            .card.flashcards, .card.chapters, .card.mcq, .card.typing { grid-column: auto; } 
         }
-
         @media (max-width: 768px) {
             main { padding: 1.5rem 5%; }
             .section-title h2 { font-size: 2.2rem; }
@@ -681,59 +309,48 @@
             .intro-content { border-radius: 30px 30px 0 0; width: 100%; max-width: 100%; animation: slideUp 0.4s; }
             @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
             .flashcard-stage { height: 350px; }
+            .chapter-header { padding: 1rem 1.5rem; }
+            .chapter-title { font-size: 1rem; }
         }
         
-        .img-error-placeholder {
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            color: var(--text-muted); background: #f1f5f9; width: 100%; height: 100%; padding: 20px;
-            text-align: center;
-        }
+        .img-error-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); background: #f1f5f9; width: 100%; height: 100%; padding: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <div class="bg-animation"><div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div></div>
 
     <!-- Intro Modal -->
     <div id="intro-modal">
         <div class="intro-content">
-            <div class="intro-logo">
-                <i class="fas fa-tooth"></i>
-            </div>
+            <div class="intro-logo"><i class="fas fa-tooth"></i></div>
             <div class="intro-text ar-text">
                 <h3>أهلاً بك يا بطل في Oral Bossology</h3>
-                <p style="margin-top: 15px; color: #555;">هذا الموقع مصمم خصيصاً ليجعلك "الزعيم" فى Oral Pathology.</p>
+                <p style="margin-top: 15px; color: #555;">الموقع الشامل لدراسة Oral Pathology.</p>
                 <ul style="margin: 20px 0; padding-right: 25px; text-align: right; color: #555;">
                     <li style="margin-bottom: 8px;">نظام فلاش كارد عشوائي (Flashcards).</li>
-                    <li style="margin-bottom: 8px;">اختبار شامل (Master Quiz).</li>
-                    <li style="margin-bottom: 8px;">معرض صور كامل.</li>
+                    <li style="margin-bottom: 8px;">اختبار MCQ شامل لـ 122 حالة.</li>
+                    <li style="margin-bottom: 8px;">نظام كتابة (Typing) مع مساعدة ذكية.</li>
+                    <li style="margin-bottom: 8px;">امتحانات سريعة (30 سؤال).</li>
+                    <li style="margin-bottom: 8px;">منهج كامل مقسم لشباتر (Chapters).</li>
                 </ul>
-                <p style="font-weight: 700; color: var(--primary);">الإصرار هو مفتاح النجاح.</p>
+                <div style="background:#fff1f2; padding:10px; border-radius:10px; margin-top:15px; border:1px solid #fecdd3;">
+                    <p style="font-weight:700; color:#be123c; font-size:0.9rem;">تنويه: الموقع خاص بـ TheBoss فقط، وربط الأسئلة لا يعكس شكل الامتحان النهائي.</p>
+                </div>
             </div>
-            <button class="btn-enter ar-text" onclick="closeIntro()">ابدأ الآن</button>
+            <button class="btn-enter ar-text" onclick="closeIntro()">ابدأ التحدي</button>
         </div>
     </div>
 
-    <!-- Header -->
     <header>
-        <div class="brand">
-            <i class="fas fa-tooth"></i>
-            <h1>Oral Bossology</h1>
-        </div>
+        <div class="brand"><i class="fas fa-tooth"></i><h1>Oral Bossology</h1></div>
         <div class="nav-controls">
             <button onclick="resetProgress()"><i class="fas fa-sync-alt"></i> <span>Reset</span></button>
             <button onclick="showDashboard()"><i class="fas fa-home"></i> <span>Menu</span></button>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
-        
         <!-- Dashboard -->
         <section id="dashboard-view" class="view active">
             <div class="section-title">
@@ -742,25 +359,36 @@
             </div>
             
             <div class="dashboard-grid">
-                <!-- 1. Flashcards (New Feature - First Box) -->
+                <!-- 1. Flashcards -->
                 <div class="card flashcards" onclick="startFlashcards()">
-                    <div class="new-badge">NEW</div>
                     <div class="icon-box"><i class="fas fa-layer-group"></i></div>
-                    <h3>Interactive Flashcards</h3>
+                    <h3>Flashcards</h3>
                     <p>Visual Study Mode</p>
                     <div style="margin-top:10px; font-weight:700; color:var(--flashcard-accent);">122 Cards</div>
                     <p style="font-size: 0.85rem; margin-top: 8px; color: #6d28d9;">Shuffled Randomly</p>
                 </div>
 
-                <!-- 2. Master Quiz -->
-                <div class="card full" onclick="startQuiz('full')">
-                    <div class="icon-box"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Master Quiz</h3>
-                    <p>Complete Challenge</p>
-                    <div style="margin-top:10px; font-weight:700; color:#4f46e5;">122 Questions</div>
+                <!-- 2. MCQ 122 -->
+                <div class="card mcq" onclick="startQuiz('full')">
+                    <div class="new-badge">MCQ</div>
+                    <div class="icon-box"><i class="fas fa-list-ol"></i></div>
+                    <h3>MCQ 122</h3>
+                    <p>Full Knowledge Test</p>
+                    <div style="margin-top:10px; font-weight:700; color:var(--primary);">122 Questions</div>
+                    <p style="font-size: 0.85rem; margin-top: 8px; color: #1e40af;">Multiple Choice</p>
                 </div>
 
-                <!-- 3. Exam 1 -->
+                <!-- 3. Typing Game -->
+                <div class="card typing" onclick="startTypingMode()">
+                    <div class="new-badge">NEW</div>
+                    <div class="icon-box"><i class="fas fa-keyboard"></i></div>
+                    <h3>Typing Game</h3>
+                    <p>Spelling & Recall</p>
+                    <div style="margin-top:10px; font-weight:700; color:var(--typing-accent);">122 Cases</div>
+                    <p style="font-size: 0.85rem; margin-top: 8px; color: #be123c;">With Smart Hints</p>
+                </div>
+
+                <!-- 4. Exam 1 -->
                 <div class="card exam1" onclick="startQuiz('exam1')">
                     <div class="icon-box"><i class="fas fa-stopwatch"></i></div>
                     <h3>Rapid Assessment I</h3>
@@ -768,7 +396,7 @@
                     <div style="margin-top:10px; font-weight:700; color:#059669;">30 Questions</div>
                 </div>
 
-                <!-- 4. Exam 2 -->
+                <!-- 5. Exam 2 -->
                 <div class="card exam2" onclick="startQuiz('exam2')">
                     <div class="icon-box"><i class="fas fa-brain"></i></div>
                     <h3>Rapid Assessment II</h3>
@@ -776,33 +404,33 @@
                     <div style="margin-top:10px; font-weight:700; color:#0284c7;">30 Questions</div>
                 </div>
 
-                <!-- 5. Gallery -->
+                <!-- 6. Gallery -->
                 <div class="card gallery" onclick="showGallery()">
                     <div class="icon-box"><i class="fas fa-images"></i></div>
                     <h3>Case Gallery</h3>
                     <p>Visual Library</p>
                     <div style="margin-top:10px; font-weight:700; color:#ea580c;">View All</div>
                 </div>
+
+                <!-- 7. Chapters -->
+                <div class="card chapters" onclick="showChaptersList()">
+                    <div class="icon-box"><i class="fas fa-book-open"></i></div>
+                    <h3>Curriculum</h3>
+                    <p>Chapter Breakdown</p>
+                    <div style="margin-top:10px; font-weight:700; color:var(--chapters-accent);">6 Chapters</div>
+                    <p style="font-size: 0.85rem; margin-top: 8px; color: #047857;">Topic Filtering</p>
+                </div>
             </div>
         </section>
 
-        <!-- Flashcards View (New) -->
+        <!-- Flashcards View -->
         <section id="flashcards-view" class="view">
-            <div class="section-title">
-                <h2>Flashcards</h2>
-                <p>Study efficiently. Click the card to flip.</p>
-            </div>
-
+            <div class="section-title"><h2>Flashcards</h2><p>Study efficiently. Click the card to flip.</p></div>
             <div class="flashcard-stage" onclick="flipCard()">
                 <div class="flashcard-inner" id="fc-inner">
                     <div class="flashcard-front">
-                        <!-- Image -->
-                        <div id="fc-img-container" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
-                            <!-- Injected via JS -->
-                        </div>
-                        <p style="position:absolute; bottom:20px; color:#aaa; font-size:0.9rem; pointer-events:none;">
-                            <i class="fas fa-sync-alt"></i> Tap to Flip
-                        </p>
+                        <div id="fc-img-container" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+                        <p style="position:absolute; bottom:20px; color:#aaa; font-size:0.9rem; pointer-events:none;"><i class="fas fa-sync-alt"></i> Tap to Flip</p>
                     </div>
                     <div class="flashcard-back">
                         <span id="fc-id">ID</span>
@@ -810,19 +438,53 @@
                     </div>
                 </div>
             </div>
-
-            <div class="flashcard-controls">
+            <div class="controls-wrapper">
                 <button class="fc-btn" onclick="prevFlashcard(event)"><i class="fas fa-chevron-left"></i> Previous</button>
                 <button class="fc-btn" onclick="shuffleFlashcards(event)"><i class="fas fa-random"></i> Reshuffle</button>
                 <button class="fc-btn primary" onclick="nextFlashcard(event)">Next <i class="fas fa-chevron-right"></i></button>
             </div>
+            <div style="text-align:center; margin-top:2rem;"><button onclick="showDashboard()" class="fc-btn" style="display:inline-flex; border-radius:50px;">Exit</button></div>
+        </section>
+
+        <!-- Typing Game View -->
+        <section id="typing-view" class="view">
+            <div class="section-title">
+                <h2>Typing Challenge</h2>
+                <p>Type the diagnosis. Use hints if needed.</p>
+            </div>
             
-            <div style="text-align:center; margin-top:2rem;">
+            <div class="typing-container">
+                <div class="image-stage" id="typing-image-stage" style="margin-bottom: 2rem; border:none; background: transparent;">
+                    <!-- Image -->
+                </div>
+
+                <div class="typing-input-wrapper">
+                    <input type="text" id="typing-input" class="typing-input" placeholder="Type diagnosis here..." autocomplete="off">
+                    <div id="suggestions-list" class="suggestions-list" style="display:none;"></div>
+                </div>
+
+                <div id="typing-feedback" class="feedback-msg"></div>
+
+                <!-- ENTER AND SKIP BUTTONS -->
+                <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <!-- Enter Button (New) -->
+                    <button id="btn-enter-typing" class="fc-btn primary" onclick="submitTyping()">Enter <i class="fas fa-check"></i></button>
+                    
+                    <!-- Skip Button -->
+                    <button id="btn-skip-typing" class="fc-btn" onclick="nextTypingQuestion(event)">Skip <i class="fas fa-forward"></i></button>
+                </div>
+                
+                <div style="margin-top: 1rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                    Progress: <span id="typing-progress">1 / 122</span> | Score: <span id="typing-score-display">0</span>
+                </div>
+            </div>
+            
+            <div style="text-align:center; margin-top:3rem;">
                 <button onclick="showDashboard()" class="fc-btn" style="display:inline-flex; border-radius:50px;">Exit to Menu</button>
             </div>
         </section>
 
-        <!-- Quiz -->
+        <!-- Quiz View (Generic for MCQ, Exams, Chapters) -->
         <section id="quiz-view" class="view">
             <div class="quiz-layout">
                 <div class="quiz-main">
@@ -830,9 +492,7 @@
                         <div id="timer-bar" class="timer-bar"></div>
                     </div>
 
-                    <div class="image-stage" id="image-container">
-                        <!-- Image injected here -->
-                    </div>
+                    <div class="image-stage" id="image-container"></div>
 
                     <div id="options-area" class="options-grid"></div>
 
@@ -844,19 +504,30 @@
 
                 <div class="quiz-sidebar">
                     <div class="sidebar-stat">
+                        <small>Mode</small>
+                        <h2 id="quiz-mode-display" style="font-size: 1.5rem; color: var(--primary);">MCQ</h2>
+                    </div>
+                    <div class="sidebar-stat">
                         <small>Progress</small>
                         <h2 id="info-progress">1 / 30</h2>
                     </div>
                     <div class="sidebar-stat">
                         <small>Score</small>
-                        <h2 id="info-score">0</h2>
+                        <h2 id="info-score" style="color: var(--success);">0</h2>
                     </div>
                     <button onclick="showDashboard()" style="width:100%; padding:10px; border:1px solid #ddd; background:white; border-radius:10px; cursor:pointer; margin-top:20px;">Exit</button>
                 </div>
             </div>
         </section>
 
-        <!-- Gallery -->
+        <!-- Chapters List View -->
+        <section id="chapters-list-view" class="view">
+            <div class="section-title"><h2>Curriculum</h2><p>Select a chapter to start a focused quiz.</p></div>
+            <div class="chapters-container" id="chapters-list-container"></div>
+            <div style="text-align:center; margin-top:3rem;"><button onclick="showDashboard()" class="fc-btn primary" style="display:inline-flex; border-radius:50px;">Back</button></div>
+        </section>
+
+        <!-- Gallery View -->
         <section id="gallery-view" class="view">
             <div class="gallery-header">
                 <h2>Case Library</h2>
@@ -888,20 +559,20 @@
             { id: "2-012.JPG", answer: "Lichen planus" },
             { id: "2-013.JPG", answer: "Lichen planus" },
             { id: "2-014.JPG", answer: "Frictional keratosis" },
-            { id: "2-015.JPG", answer: "1. Drop-shaped" },
-            { id: "2-016.JPG", answer: "2. Irregular epithelial stratification." },
-            { id: "2-017.JPG", answer: "3. Basilar hyperplasia." },
-            { id: "2-018.JPG", answer: "4. Loss of basal cell polarity." },
-            { id: "2-019.JPG", answer: "5. Cellular and nuclear pleomorphism. 6. Nuclear hyperchromatism." },
-            { id: "2-020.JPG", answer: "7. Enlarged or prominent nucleoli." },
-            { id: "2-021.JPG", answer: "8. Increased nuclear / cytoplasmic ratio." },
-            { id: "2-022.JPG", answer: "9. Individual cell keratinization." },
-            { id: "2-023.JPG", answer: "10. Increase normal and abnormal mitosis." },
-            { id: "2-024.JPG", answer: "11. Reduction or loss of cellular adhesion." },
+            { id: "2-015.JPG", answer: "Drop-shaped" },
+            { id: "2-016.JPG", answer: "Irregular epithelial stratification" },
+            { id: "2-017.JPG", answer: "Basilar hyperplasia" },
+            { id: "2-018.JPG", answer: "Loss of basal cell polarity" },
+            { id: "2-019.JPG", answer: "Cellular and nuclear pleomorphism" },
+            { id: "2-020.JPG", answer: "Nuclear hyperchromatism" },
+            { id: "2-021.JPG", answer: "Increased nuclear cytoplasmic ratio" },
+            { id: "2-022.JPG", answer: "Individual cell keratinization" },
+            { id: "2-023.JPG", answer: "Increase normal and abnormal mitosis" },
+            { id: "2-024.JPG", answer: "Reduction or loss of cellular adhesion" },
             { id: "2-025.JPG", answer: "Mild epithelial dysplasia" },
             { id: "2-026.JPG", answer: "Moderate epithelial dysplasia" },
             { id: "2-027.JPG", answer: "Severe epithelial dysplasia" },
-            { id: "2-028.JPG", answer: "Carcinoma in Situ" },
+            { id: "2-028.JPG", answer: "Carcinoma in situ" },
             { id: "2-029.JPG", answer: "Oral submucous fibrosis" },
             { id: "2-030.JPG", answer: "Oral submucous fibrosis" },
             { id: "2-031.JPG", answer: "Oral submucous fibrosis" },
@@ -945,7 +616,7 @@
             { id: "2-069.JPG", answer: "Follicular ameloblastoma" },
             { id: "2-070.JPG", answer: "Follicular ameloblastoma" },
             { id: "2-071.JPG", answer: "Follicular ameloblastoma" },
-            { id: "2-072.JPG", answer: "1999, 1999, 1999, 1999, 1999, 1999 1999, 1999, 1999, 1999, 1999." },
+            { id: "2-072.JPG", answer: "Follicular ameloblastoma" },
             { id: "2-073.JPG", answer: "Follicular ameloblastoma" },
             { id: "2-074.JPG", answer: "Follicular ameloblastoma Stellate reticulum Ameloblasts" },
             { id: "2-075.JPG", answer: "Plexiform ameloblastoma" },
@@ -998,84 +669,63 @@
             { id: "2-122.JPG", answer: "Sjögren's Syndrome" }
         ];
 
-        const quotes = [
-            "ما شاء الله، إجابة ممتازة!", "أنت بطل، استمر!", "عظيم جداً، هكذا تكون الإجابة.",
-            "أنت تسير في الطريق الصحيح.", "عمل رائع، فخور بك!", "استمر، النجاح حليفك.",
-            "ممتاز، لا تتوقف أبداً.", "أنت تتعلم بذكاء.", "هذه هي الروح القيادية!",
-            "إجابة صحيحة 100%.", "أسلوب مذهل في التحليل.", "أنت تتفوق يوماً بعد يوم.",
-            "واصل تميزك يا طبيب المستقبل.", "عقلية رائعة وإجابة موفقة.", "أحسنت، كل التقدير لك.",
-            "لا مثيل لاجتهادك.", "هذا هو التفوق الحقيقي.", "مستقبلك باهر بإذن الله.",
-            "أنت تملك موهبة فطرية.", "ممتاز، هكذا يحصل الأبطال.", "اجتهادك يثمر دائماً.",
-            "أنت مثال يحتذى به.", "استمر في هذا التقدم.", "إجابة تشهد على ذكائك.",
-            "أنت تلميذ نجيب.", "يا بطل، ما هذا التميز!", "أنت تفرض احترامك بعلمك.",
-            "مجهود تشكر عليه جداً.", "أنت تترك بصمة قوية.", "إجابة منطقية وسليمة.",
-            "أنت فوق المستوى المطلوب.", "هذا هو الطريق للقمة.", "لا توقف عزيمتك.",
-            "أنت تستحق كل خير.", "مستوى رفيع من الفهم.", "يا لها من إجابة رائعة!",
-            "أنت تتجاوز التوقعات.", "نعم، هذه هي الطريقة.", "علمك واسع وفهمك عميق.",
-            "أنت ستجد النجاح بانتظارك.", "هذا التفوق يستحق التصفيق.", "استمر، أنت مبدع.",
-            "أنت تمتلك رؤية ثاقبة.", "إجابة متميزة كعادتك.", "أنت تبني مستقبلاً مشرقاً.",
-            "هذه روح لا تقهر.", "أنت تذهلنا بتميزك.", "ممتاز، هكذا دائماً.",
-            "أنت قدوة للجميع.", "استمر ولا ترجع للوراء.", "الله ينور دربك يا بطل."
+        const chaptersData = [
+            { title: "Chapter 1 — White Lesions", icon: "fa-file-medical", topics: ["Hyperparakeratosis", "Acanthosis", "White sponge nevus", "Lichen planus", "Frictional keratosis"] },
+            { title: "Chapter 2 — Dysplasia", icon: "fa-virus", topics: ["Drop-shaped", "Irregular epithelial stratification", "Basilar hyperplasia", "Loss of basal cell polarity", "Cellular and nuclear pleomorphism", "Nuclear hyperchromatism", "Enlarged or prominent nucleoli", "Increased nuclear cytoplasmic ratio", "Individual cell keratinization", "Increase normal and abnormal mitosis", "Reduction or loss of cellular adhesion", "Mild epithelial dysplasia", "Moderate epithelial dysplasia", "Severe epithelial dysplasia", "Carcinoma in situ", "Oral submucous fibrosis"] },
+            { title: "Chapter 3 — Epithelial Tumors", icon: "fa-layer-group", topics: ["Squamous cell papilloma", "Well differentiated squamous cell carcinoma", "Moderately differentiated squamous cell carcinoma", "Poorly differentiated squamous cell carcinoma", "Verrucous Carcinoma", "Basal cell Carcinoma"] },
+            { title: "Chapter 4 — Connective Tissue", icon: "fa-network-wired", topics: ["Irritation Fibroma", "Peripheral Giant Cell Granuloma", "Capillary hemangioma", "Cavernous hemangioma", "Lymphangioma", "Traumatic neuroma", "Neurilemmoma", "Osteoblastic osteosarcoma", "Chondroblastic osteosarcoma", "Fibroblastic osteosarcoma", "Burkitt's lymphoma"] },
+            { title: "Chapter 5 — Odontogenic Tumors", icon: "fa-tooth", topics: ["Follicular ameloblastoma", "Plexiform ameloblastoma", "Acanthomatous ameloblastoma", "Granular ameloblastoma", "Desmoplastic ameloblastoma", "Unicyctic ameloblastoma", "تقريبا مش معانا Peripheral ameloblastoma", "Calcifying epithelium odontogenic tumor (CEOT) Pindborg tumor", "Adenomatoid odontogenic tumor \" AOT \"", "Compound odontome", "Complex odontome", "Cementoblastoma"] },
+            { title: "Chapter 6 — Salivary Glands", icon: "fa-tint", topics: ["Plemorphic adenoma", "Squamous metaplasia in pleomorphic adenoma", "Pleomorphic adenoma", "Warthin’s tumor", "Low grade mucoepidermoid carcinoma", "High grade mucoepidermoid carcinoma", "Adenoid cystic carcinoma", "MUC0US RETENTION Cyst", "Mucous extravasation phenomenon", "Sjögren's Syndrome"] }
         ];
 
-        // State Variables
-        let currentQuiz = {
-            questions: [],
-            index: 0,
-            score: 0,
-            mode: null
-        };
-        
-        // Flashcard State
-        let flashcardData = [];
-        let fcIndex = 0;
+        const quotes = ["ما شاء الله، إجابة ممتازة!", "أنت بطل، استمر!", "عظيم جداً، هكذا تكون الإجابة.", "أنت تسير في الطريق الصحيح.", "عمل رائع، فخور بك!", "استمر، النجاح حليفك."];
 
-        const STORAGE_KEY = 'oral_bossology_v5';
+        let currentQuiz = { questions: [], index: 0, score: 0, mode: null };
+        let flashcardData = [], fcIndex = 0;
+        let typingData = [], tIndex = 0;
+        
+        const STORAGE_KEY = 'oral_bossology_final';
         let timerInterval;
 
-        // --- SMART IMAGE LOADER ---
+        // --- UTILS ---
         function smartLoadImage(imgElement, filename, containerElement = null) {
             const setSrc = (src) => { imgElement.src = src; };
             setSrc(filename);
-
             imgElement.onerror = function() {
                 const lowerName = filename.toLowerCase();
                 const upperName = filename.toUpperCase();
-
-                if (filename !== lowerName) {
-                    setSrc(lowerName);
-                } else if (filename !== upperName) {
-                    setSrc(upperName);
-                } else {
-                    if (containerElement) {
-                        containerElement.innerHTML = `
-                            <div class="img-error-placeholder">
-                                <i class="far fa-image" style="font-size:3rem; margin-bottom:10px;"></i>
-                                <p>Image Not Found</p>
-                                <small>${filename}</small>
-                            </div>
-                        `;
-                    } else {
-                        imgElement.style.display = 'none';
-                        const errorDiv = document.createElement('div');
-                        errorDiv.className = 'img-error-placeholder';
-                        errorDiv.style.height = '100%';
-                        errorDiv.style.fontSize = '0.8rem';
-                        errorDiv.innerHTML = `<i class="far fa-image"></i><span>${filename}</span>`;
-                        if (imgElement.parentNode) {
-                            imgElement.parentNode.insertBefore(errorDiv, imgElement);
-                        }
-                    }
+                if (filename !== lowerName) setSrc(lowerName);
+                else if (filename !== upperName) setSrc(upperName);
+                else {
+                    if (containerElement) containerElement.innerHTML = `<div class="img-error-placeholder"><i class="far fa-image" style="font-size:3rem; margin-bottom:10px;"></i><p>Image Not Found</p><small>${filename}</small></div>`;
+                    else { imgElement.style.display = 'none'; }
                 }
             };
         }
 
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function switchView(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        // --- INIT ---
         function init() {
             renderGallery();
+            renderChaptersList();
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 currentQuiz = JSON.parse(saved);
-                loadQuestion();
+                if(currentQuiz.mode === 'typing') { switchView('typing-view'); loadTypingQuestion(); }
+                else { loadQuestion(); }
             } else {
                 const modal = document.getElementById('intro-modal');
                 modal.style.display = 'flex';
@@ -1089,85 +739,169 @@
             setTimeout(() => modal.style.display = 'none', 400);
         }
 
-        function switchView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-            window.scrollTo(0,0);
-        }
-
         function showDashboard() {
             clearInterval(timerInterval);
             switchView('dashboard-view');
         }
+        
+        function showGallery() { switchView('gallery-view'); }
+        function showChaptersList() { switchView('chapters-list-view'); }
+        function resetProgress() { if(confirm("Reset all progress?")) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
 
-        function showGallery() {
-            switchView('gallery-view');
-        }
-
-        // --- FLASHCARD FUNCTIONS ---
+        // --- FLASHCARDS ---
         function startFlashcards() {
-            // Initialize flashcard data SHUFFLED RANDOMLY
-            flashcardData = shuffleArray([...rawData]); 
-            fcIndex = 0;
-            switchView('flashcards-view');
-            renderFlashcard();
+            flashcardData = shuffleArray([...rawData]); fcIndex = 0;
+            switchView('flashcards-view'); renderFlashcard();
         }
-
         function renderFlashcard() {
             const card = flashcardData[fcIndex];
             const inner = document.getElementById('fc-inner');
-            
-            // Reset flip state
             inner.classList.remove('is-flipped');
-            
-            // Wait for unflip before changing content (optional, but smoother)
             setTimeout(() => {
                 document.getElementById('fc-id').innerText = card.id;
                 document.getElementById('fc-answer').innerText = card.answer;
-                
                 const imgContainer = document.getElementById('fc-img-container');
                 imgContainer.innerHTML = `<img id="fc-img-el" style="max-width:100%; max-height:300px; object-fit:contain;" alt="${card.id}">`;
                 smartLoadImage(document.getElementById('fc-img-el'), card.id, imgContainer);
             }, 200);
         }
+        function flipCard() { document.getElementById('fc-inner').classList.toggle('is-flipped'); }
+        function nextFlashcard(e) { e.stopPropagation(); if(fcIndex < flashcardData.length - 1) { fcIndex++; renderFlashcard(); } }
+        function prevFlashcard(e) { e.stopPropagation(); if(fcIndex > 0) { fcIndex--; renderFlashcard(); } }
+        function shuffleFlashcards(e) { e.stopPropagation(); flashcardData = shuffleArray([...rawData]); fcIndex = 0; renderFlashcard(); }
 
-        function flipCard() {
-            document.getElementById('fc-inner').classList.toggle('is-flipped');
+        // --- TYPING MODE ---
+        function startTypingMode() {
+            typingData = shuffleArray([...rawData]);
+            tIndex = 0;
+            currentQuiz = { questions: typingData, index: 0, score: 0, mode: 'typing' };
+            switchView('typing-view');
+            loadTypingQuestion();
         }
 
-        function nextFlashcard(e) {
-            e.stopPropagation(); // Prevent flip
-            if (fcIndex < flashcardData.length - 1) {
-                fcIndex++;
-                renderFlashcard();
+        function loadTypingQuestion() {
+            if (tIndex >= typingData.length) {
+                // Final Score Calculation
+                alert(`Typing Game Completed!\nYour Final Score: ${currentQuiz.score} / ${typingData.length}`);
+                localStorage.removeItem(STORAGE_KEY);
+                showDashboard();
+                return;
             }
+            const q = typingData[tIndex];
+            document.getElementById('typing-progress').innerText = `${tIndex + 1} / ${typingData.length}`;
+            document.getElementById('typing-score-display').innerText = currentQuiz.score;
+            
+            const imgContainer = document.getElementById('typing-image-stage');
+            imgContainer.innerHTML = `<img id="t-img" style="max-height:350px;" alt="slide">`;
+            smartLoadImage(document.getElementById('t-img'), q.id, imgContainer);
+
+            const input = document.getElementById('typing-input');
+            input.value = '';
+            input.disabled = false;
+            input.focus();
+            document.getElementById('typing-feedback').innerText = '';
+            document.getElementById('typing-feedback').className = 'feedback-msg';
+            document.getElementById('suggestions-list').style.display = 'none';
+            
+            saveProgress();
         }
 
-        function prevFlashcard(e) {
-            e.stopPropagation();
-            if (fcIndex > 0) {
-                fcIndex--;
-                renderFlashcard();
+        // Typing Input Listener (Autocomplete Logic)
+        const typingInput = document.getElementById('typing-input');
+        typingInput.addEventListener('input', function(e) {
+            const val = e.target.value.toLowerCase().trim();
+            const suggestionBox = document.getElementById('suggestions-list');
+            
+            if (val.length > 0) {
+                const allAnswers = rawData.map(d => d.answer);
+                const matches = [...new Set(allAnswers)].filter(a => a.toLowerCase().includes(val)).slice(0, 5);
+                
+                if (matches.length > 0) {
+                    suggestionBox.innerHTML = matches.map(m => `<div class="suggestion-item" onclick="fillTyping('${m.replace(/'/g, "\\'")}')"><i class="fas fa-check"></i> ${m}</div>`).join('');
+                    suggestionBox.style.display = 'block';
+                } else {
+                    suggestionBox.style.display = 'none';
+                }
+            } else {
+                suggestionBox.style.display = 'none';
             }
+        });
+
+        // Handle Enter Key on Keyboard
+        typingInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkTypingAnswer();
+        });
+
+        function fillTyping(text) {
+            document.getElementById('typing-input').value = text;
+            document.getElementById('suggestions-list').style.display = 'none';
+            document.getElementById('typing-input').focus();
         }
 
-        function shuffleFlashcards(e) {
-            e.stopPropagation();
-            flashcardData = shuffleArray([...rawData]);
-            fcIndex = 0;
-            renderFlashcard();
+        // NEW: Function for the Enter Button
+        function submitTyping() {
+            checkTypingAnswer();
         }
 
-        // --- QUIZ FUNCTIONS ---
+        function checkTypingAnswer() {
+            const input = document.getElementById('typing-input');
+            const val = input.value.trim();
+            const correct = typingData[tIndex].answer;
+            const feedback = document.getElementById('typing-feedback');
+
+            // Normalize comparison (ignore case, extra spaces)
+            if (val.toLowerCase() === correct.toLowerCase()) {
+                feedback.innerText = "Correct! Excellent.";
+                feedback.className = 'feedback-msg correct-msg';
+                currentQuiz.score++;
+                input.disabled = true;
+                // Update score display immediately
+                document.getElementById('typing-score-display').innerText = currentQuiz.score;
+                
+                setTimeout(nextTypingQuestion, 1500);
+            } else {
+                feedback.innerText = "Wrong! Try again.";
+                feedback.className = 'feedback-msg wrong-msg';
+                input.classList.add('shake'); // Reuse shake animation
+                setTimeout(() => input.classList.remove('shake'), 500);
+            }
+            saveProgress();
+        }
+
+        function nextTypingQuestion(e) {
+            if(e) e.stopPropagation();
+            tIndex++;
+            currentQuiz.index++;
+            loadTypingQuestion();
+        }
+
+        // --- GENERIC QUIZ (MCQ / EXAMS / CHAPTERS) ---
         function startQuiz(mode) {
             let questions = [];
             if (mode === 'full') {
                 questions = shuffleArray([...rawData]);
-            } else {
+                document.getElementById('quiz-mode-display').innerText = "MCQ 122";
+            } else if (mode === 'exam1' || mode === 'exam2') {
                 const all = shuffleArray([...rawData]);
                 questions = all.slice(0, 30);
+                document.getElementById('quiz-mode-display').innerText = mode === 'exam1' ? "Exam I" : "Exam II";
             }
-            currentQuiz = { questions, index: 0, score: 0, mode };
+            currentQuiz = { questions, index: 0, score: 0, mode: mode };
+            saveProgress();
+            loadQuestion();
+        }
+
+        function startChapterQuiz(chapterIndex) {
+            const topics = chaptersData[chapterIndex].topics;
+            const questions = rawData.filter(item => topics.some(t => item.answer === t || item.answer.includes(t)));
+            
+            if (questions.length === 0) {
+                alert("No images found for this chapter.");
+                return;
+            }
+
+            currentQuiz = { questions: shuffleArray(questions), index: 0, score: 0, mode: 'chapter' };
+            document.getElementById('quiz-mode-display').innerText = "Chapter Quiz";
             saveProgress();
             loadQuestion();
         }
@@ -1175,9 +909,13 @@
         function loadQuestion() {
             switchView('quiz-view');
             if (currentQuiz.index >= currentQuiz.questions.length) {
-                finishQuiz();
+                clearInterval(timerInterval);
+                alert(`Quiz Completed!\nScore: ${currentQuiz.score} / ${currentQuiz.questions.length}`);
+                localStorage.removeItem(STORAGE_KEY);
+                showDashboard();
                 return;
             }
+
             const q = currentQuiz.questions[currentQuiz.index];
             document.getElementById('info-progress').innerText = `${currentQuiz.index + 1} / ${currentQuiz.questions.length}`;
             document.getElementById('info-score').innerText = currentQuiz.score;
@@ -1187,7 +925,6 @@
             const imgContainer = document.getElementById('image-container');
             imgContainer.innerHTML = `<img id="q-image" style="max-height:400px;" alt="${q.id}">`;
             const imgEl = document.getElementById('q-image');
-            
             smartLoadImage(imgEl, q.id, imgContainer);
 
             const options = generateOptions(q);
@@ -1234,7 +971,6 @@
             const q = currentQuiz.questions[currentQuiz.index];
             btns.forEach(b => { if(b.innerText === q.answer) b.classList.add('correct'); });
             document.getElementById('quote-display').innerText = "Time's up!";
-            document.getElementById('quote-display').style.color = "var(--primary)";
             document.getElementById('btn-next').style.display = "inline-block";
         }
 
@@ -1264,58 +1000,75 @@
             loadQuestion();
         }
 
-        function finishQuiz() {
-            clearInterval(timerInterval);
-            alert(`Quiz Completed!\nScore: ${currentQuiz.score} / ${currentQuiz.questions.length}`);
-            localStorage.removeItem(STORAGE_KEY);
-            showDashboard();
+        // --- CHAPTERS LIST UI ---
+        function renderChaptersList() {
+            const container = document.getElementById('chapters-list-container');
+            container.innerHTML = '';
+            chaptersData.forEach((chapter, index) => {
+                const item = document.createElement('div');
+                item.className = 'chapter-item';
+                const header = document.createElement('div');
+                header.className = 'chapter-header';
+                header.onclick = () => toggleChapterContent(index);
+                header.innerHTML = `
+                    <div class="chapter-title">
+                        <div class="chapter-icon"><i class="fas ${chapter.icon}"></i></div>
+                        ${chapter.title}
+                    </div>
+                    <i class="fas fa-chevron-down chapter-toggle-icon"></i>
+                `;
+                const content = document.createElement('div');
+                content.className = 'chapter-content';
+                content.id = `chapter-content-${index}`;
+                const list = document.createElement('ul');
+                list.className = 'chapter-list';
+                chapter.topics.forEach(topic => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check-circle"></i> ${topic}`;
+                    list.appendChild(li);
+                });
+                content.appendChild(list);
+                
+                const startBtn = document.createElement('div');
+                startBtn.style.padding = "1rem";
+                startBtn.style.textAlign = "center";
+                startBtn.innerHTML = `<button class="fc-btn primary" style="display:inline-flex; width:100%; justify-content:center;" onclick="startChapterQuiz(${index}); event.stopPropagation();">Start Chapter Quiz</button>`;
+                content.appendChild(startBtn);
+
+                item.appendChild(header);
+                item.appendChild(content);
+                container.appendChild(item);
+            });
         }
 
-        function saveProgress() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(currentQuiz));
+        function toggleChapterContent(index) {
+            const item = document.querySelectorAll('.chapter-item')[index];
+            const content = document.getElementById(`chapter-content-${index}`);
+            item.classList.toggle('active');
+            if (content.style.maxHeight) content.style.maxHeight = null;
+            else content.style.maxHeight = content.scrollHeight + "px";
         }
 
-        function resetProgress() {
-            if(confirm("Reset all progress?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                location.reload();
-            }
-        }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
+        // --- GALLERY ---
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             const sorted = [...rawData].sort((a,b) => a.id.localeCompare(b.id));
-            
             sorted.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
-                
                 const img = document.createElement('img');
-                img.loading = 'lazy';
-                img.alt = item.id;
+                img.loading = 'lazy'; img.alt = item.id;
                 smartLoadImage(img, item.id, null);
-                
                 const imgBox = document.createElement('div');
-                imgBox.className = 'g-img-box';
-                imgBox.appendChild(img);
-
+                imgBox.className = 'g-img-box'; imgBox.appendChild(img);
                 const info = document.createElement('div');
                 info.className = 'g-info';
                 info.innerHTML = `<div class="g-name">${item.id}</div><div class="g-diag">${item.answer}</div>`;
-
-                div.appendChild(imgBox);
-                div.appendChild(info);
-                grid.appendChild(div);
+                div.appendChild(imgBox); div.appendChild(info); grid.appendChild(div);
             });
         }
+
+        function saveProgress() { localStorage.setItem(STORAGE_KEY, JSON.stringify(currentQuiz)); }
 
         window.onload = init;
     </script>
